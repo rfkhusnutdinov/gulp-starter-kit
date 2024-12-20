@@ -1,0 +1,15 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  transition: color var(--transition-base),
+    background-color var(--transition-base), border-color var(--transition-base);
+
+  &:hover,
+  &:focus-visible,
+  &.focus-visible {
+  }
+}

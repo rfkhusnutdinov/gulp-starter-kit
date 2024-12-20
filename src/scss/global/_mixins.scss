@@ -1,0 +1,36 @@
+@use "sass:map";
+@use "variables";
+
+// Миксин для шрифтов
+@mixin font-face($font-name, $font-src, $font-style, $font-weight) {
+  @font-face {
+    font-weight: $font-weight;
+    font-family: "#{$font-name}";
+    font-style: $font-style;
+    src: local("#{$font-name}"),
+      url("../fonts/#{$font-src}.woff2") format("woff2");
+    font-display: swap;
+  }
+}
+
+// Медиа запросы
+@mixin media-breakpoint-down($width) {
+  @if map.has-key(variables.$grid-breakpoints, $width) {
+    $width: map.get(variables.$grid-breakpoints, $width);
+    $width: $width - 0.02px;
+
+    @media only screen and (max-width: $width) {
+      @content;
+    }
+  }
+}
+
+@mixin media-breakpoint-up($width) {
+  @if map.has-key(variables.$grid-breakpoints, $width) {
+    $width: map.get(variables.$grid-breakpoints, $width);
+
+    @media only screen and (min-width: $width) {
+      @content;
+    }
+  }
+}

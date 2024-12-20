@@ -1,0 +1,22 @@
+// .page ==================================================
+.page {
+  // .page__body
+  &__body {
+  }
+
+  // .page__wrapper
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 100%;
+    overflow: hidden;
+  }
+
+  // .page__main
+  &__main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}

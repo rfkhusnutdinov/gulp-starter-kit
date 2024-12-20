@@ -1,0 +1,31 @@
+export const paths = {
+  src: {
+    html: "src/templates/*.pug",
+    scss: "src/scss/*.scss",
+    appJs: "src/js/app.js",
+    libsJs: "src/js/libs.js",
+    img: "src/img/**/*.{png,jpg,jpeg,gif,svg,webp,ico,xml,webmanifest}",
+    fonts: "src/fonts/*.{ttf,woff,woff2}",
+    svg: "src/svg/*.svg",
+    misc: "src/misc/**/*.*",
+  },
+  dist: {
+    html: "dist",
+    css: "dist/css",
+    js: "dist",
+    img: "dist/img",
+    fonts: "dist/fonts",
+    misc: "dist",
+    clean: "dist/**",
+  },
+  watch: {
+    all: "dist",
+    html: "src/templates/**/*.pug",
+    scss: "src/scss/**/*.scss",
+    js: "src/js/**/*.js",
+    img: "src/img/**/*.{png,jpg,jpeg,gif,svg,webp,ico,xml,webmanifest}",
+    fonts: "src/fonts/*.{ttf,woff,woff2}",
+    svg: "src/svg/*.svg",
+    misc: "src/misc/**/*.*",
+  },
+};

@@ -1,0 +1,44 @@
+// .content ====================================================================================================
+.content {
+  blockquote,
+  dl,
+  figure,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  ol,
+  p,
+  pre,
+  table,
+  img {
+    margin: 20px 0;
+  }
+
+  ul,
+  ol {
+    list-style-position: outside;
+    padding-inline-start: 24px;
+
+    li {
+    }
+  }
+
+  ol {
+    padding-inline-start: 54px;
+  }
+
+  // TODO: Проверить
+  & > * {
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

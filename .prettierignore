@@ -1,0 +1,7 @@
+.browserslistrc
+.prettierignore
+.editorconfig
+package.json
+package-lock.json
+README.md
+node_modules
