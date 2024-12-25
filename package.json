@@ -1,6 +1,6 @@
 {
   "name": "starter-kit-pug-scss-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Стартовый шаблон для верстки",
   "main": "gulpfile.js",
   "type": "module",
