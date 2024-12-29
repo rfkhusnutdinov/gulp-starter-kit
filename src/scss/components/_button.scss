@@ -9,7 +9,6 @@
     background-color var(--transition-base), border-color var(--transition-base);
 
   &:hover,
-  &:focus-visible,
-  &.focus-visible {
+  &:focus-visible {
   }
 }

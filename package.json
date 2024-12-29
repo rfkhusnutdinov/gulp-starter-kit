@@ -1,5 +1,5 @@
 {
-  "name": "starter-kit-pug-scss-js",
+  "name": "gulp-starter",
   "version": "1.0.1",
   "description": "Стартовый шаблон для верстки",
   "main": "gulpfile.js",
@@ -39,6 +39,5 @@
     "yargs": "^17.7.2"
   },
   "dependencies": {
-    "focus-visible": "^5.2.1"
   }
 }
