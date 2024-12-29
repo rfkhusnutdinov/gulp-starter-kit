@@ -1,7 +1,0 @@
-mixin IconSprite(name)
-  span.icon(aria-hidden="true")
-    svg
-      use(xlink:href=`img/sprite.svg#${name}`)
-
-mixin IconBg(url)
-  span.icon(style=`background-image: url("${url}");`, aria-hidden="true")

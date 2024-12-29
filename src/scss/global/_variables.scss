@@ -1,6 +1,3 @@
-// $grid-columns: 12;
-// $container-padding-x: 40px;
-// $grid-gutter-width: 24px;
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -9,15 +6,6 @@ $grid-breakpoints: (
   xl: 1200px,
   xxl: 1400px,
 );
-// $container-max-widths: (
-//   sm: 540px,
-//   md: 720px,
-//   lg: 960px,
-//   xl: 1140px,
-//   xxl: 1336px,
-// );
-
-// @import "../../../node_modules/bootstrap/scss/bootstrap-grid";
 
 :root {
   // Colors
@@ -30,7 +18,7 @@ $grid-breakpoints: (
   // Properties
   --outline-focus-width: 2px;
   --outline-focus-offset: 4px;
-  --outline-focus-color: var(--color-fill-black-30);
+  --outline-focus-color: #000;
   --outline-focus-style: dashed;
 
   // Font Families
@@ -39,8 +27,4 @@ $grid-breakpoints: (
 
   // Text
   --font-body: 400 18px / 188% var(--font-family-primary);
-}
-
-.row {
-  // --bs-gutter-y: 24px;
 }

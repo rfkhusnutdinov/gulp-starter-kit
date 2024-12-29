@@ -1,11 +1,11 @@
 import GulpFormatHtml from "gulp-format-html";
-import GulpPug from "gulp-pug";
 import gulpIf from "gulp-if";
+import fileinclude from "gulp-file-include";
 
 export const htmlTask = () => {
   return app.gulp
     .src(app.paths.src.html)
-    .pipe(GulpPug())
+    .pipe(fileinclude())
     .pipe(
       gulpIf(
         app.mode === "production",

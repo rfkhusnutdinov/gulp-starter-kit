@@ -21,7 +21,7 @@ import { fontsTask } from "./gulp/fonts.js";
 import { htmlTask } from "./gulp/html.js";
 import { stylesTask } from "./gulp/styles.js";
 import { scriptsTask } from "./gulp/scripts.js";
-import { imagesTask } from "./gulp/images.js";
+import { assetsTask } from "./gulp/assets.js";
 import { miscTask } from "./gulp/misc.js";
 // import { spriteTask } from "./gulp/sprite.js";
 import { serverTask } from "./gulp/server.js";
@@ -32,7 +32,7 @@ const watcher = async () => {
   gulp.watch(paths.watch.scss, stylesTask);
   gulp.watch(paths.watch.fonts, fontsTask);
   // gulp.watch(paths.watch.svg, spriteTask);
-  gulp.watch(paths.watch.img, imagesTask);
+  gulp.watch(paths.watch.assets, assetsTask);
   gulp.watch(paths.watch.js, scriptsTask);
   gulp.watch(paths.watch.misc, miscTask);
 };
@@ -44,7 +44,7 @@ const tasks = gulp.series(
     htmlTask,
     stylesTask,
     scriptsTask,
-    imagesTask,
+    assetsTask,
     fontsTask,
     miscTask
     // spriteTask

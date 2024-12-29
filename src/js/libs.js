@@ -1,7 +1,3 @@
-// * Focus visible ==========================================
-
-import "focus-visible";
-
 // * Splide ==========================================
 
 // import "@splidejs/splide/css/core";
