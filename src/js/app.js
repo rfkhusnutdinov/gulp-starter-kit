@@ -144,3 +144,37 @@
 //     });
 //   });
 // }
+
+// * ==========================================
+
+/**
+ * * Модальные окна
+ */
+
+// const modalButtons = document.querySelectorAll("[data-modal-button]");
+
+// if (modalButtons.length > 0) {
+//   modalButtons.forEach((button) => {
+//     const target = document.getElementById(
+//       button.getAttribute("data-modal-button")
+//     );
+
+//     if (target) {
+//       button.addEventListener("click", (e) => {
+//         target.showModal();
+//         document.body.style.overflow = "hidden";
+//       });
+//       target.addEventListener("close", (e) => {
+//         document.body.style.overflow = "";
+//       });
+//       target.addEventListener("click", (e) => {
+//         e.currentTarget.close();
+//       });
+//       target
+//         .querySelector("[data-modal-content]")
+//         .addEventListener("click", (e) => {
+//           e.stopPropagation();
+//         });
+//     }
+//   });
+// }

@@ -12,9 +12,11 @@ Globals
 html {
   scroll-behavior: smooth;
   height: 100%;
+  scrollbar-gutter: stable;
 }
 
 body {
+  scrollbar-gutter: stable;
   display: flex;
   flex-direction: column;
   height: 100%;

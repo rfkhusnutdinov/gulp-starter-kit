@@ -32,12 +32,13 @@
     "gulp-sass": "^6.0.0",
     "rollup": "^4.28.1",
     "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.83.0",
+    "sass": "1.75.0",
     "stylelint-config-prettier-scss": "^1.0.0",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard-scss": "^14.0.0",
     "yargs": "^17.7.2"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3"
   }
 }

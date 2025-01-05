@@ -1,16 +1,20 @@
 // * ===========================================================================
 // * GLOBAL
 // * ===========================================================================
-@use "./global/normalize";
-@use "./global/fonts";
-@use "./global/variables";
-@use "./global/global";
+@import "./global/mixins";
+@import "./global/normalize";
+@import "./global/fonts";
+@import "./global/variables";
+@import "./global/global";
+
+// @import "./global/bootstrap";
 
 // * ===========================================================================
 // * COMPONENTS
 // * ===========================================================================
-@use "./components/icon";
-@use "./components/container";
+@import "./components/icon";
+@import "./components/container";
 
-// @use "./components/button";
-// @use "./components/content";
+// @import "./components/modal";
+// @import "./components/button";
+// @import "./components/content";
