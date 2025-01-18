@@ -151,12 +151,12 @@
  * * Модальные окна
  */
 
-// const modalButtons = document.querySelectorAll("[data-modal-button]");
+// const dialogButtons = document.querySelectorAll("[data-dialog-button]");
 
-// if (modalButtons.length > 0) {
-//   modalButtons.forEach((button) => {
+// if (dialogButtons.length > 0) {
+//   dialogButtons.forEach((button) => {
 //     const target = document.getElementById(
-//       button.getAttribute("data-modal-button")
+//       button.getAttribute("data-dialog-button")
 //     );
 
 //     if (target) {
@@ -171,7 +171,7 @@
 //         e.currentTarget.close();
 //       });
 //       target
-//         .querySelector("[data-modal-content]")
+//         .querySelector("[data-dialog-content]")
 //         .addEventListener("click", (e) => {
 //           e.stopPropagation();
 //         });

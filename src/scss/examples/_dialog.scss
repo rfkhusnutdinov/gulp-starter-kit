@@ -1,7 +1,7 @@
 /*! =====================================
-.modal
+.dialog
 ====================================== */
-.modal {
+.dialog {
   width: 100vw;
   max-width: 100%;
   height: 100vh;
@@ -14,7 +14,7 @@
     background: rgba(0, 0, 0, 80%);
   }
 
-  // .modal__container
+  // .dialog__container
   &__container {
     display: flex;
     align-items: center;
@@ -22,7 +22,7 @@
     min-height: 100%;
   }
 
-  // .modal__box
+  // .dialog__box
   &__box {
     position: relative;
     width: 100%;
@@ -32,7 +32,7 @@
     background-color: #fff;
   }
 
-  // .modal__close-button
+  // .dialog__close-button
   &__close-button {
   }
 }

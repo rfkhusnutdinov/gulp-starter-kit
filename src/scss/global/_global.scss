@@ -16,7 +16,6 @@ html {
 }
 
 body {
-  scrollbar-gutter: stable;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -25,7 +24,12 @@ body {
   font: var(--font-body);
   letter-spacing: 0;
   background-color: var(--color-true-white);
+  scrollbar-gutter: stable;
   scroll-behavior: inherit;
+}
+
+:focus {
+  outline: none !important;
 }
 
 :focus-visible {
@@ -50,4 +54,15 @@ img:not([src], [srcset]) {
 
 main {
   flex-grow: 1;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
 }

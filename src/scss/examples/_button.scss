@@ -3,12 +3,19 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  text-transform: uppercase;
+  text-decoration: none;
   border: 1px solid transparent;
   transition: color var(--transition-base),
     background-color var(--transition-base), border-color var(--transition-base);
 
   &:hover,
   &:focus-visible {
+  }
+
+  &:active {
+  }
+
+  &:disabled,
+  &[disabled] {
   }
 }
