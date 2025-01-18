@@ -1,7 +1,5 @@
-.browserslistrc
-.prettierignore
-.editorconfig
-package.json
-package-lock.json
-README.md
-node_modules
+# Пакеты npm
+/node_modules
+
+# Папка с собранным проектом
+/dist

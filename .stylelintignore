@@ -1,3 +1,9 @@
-dist
-node_modules
-src/js
+# Папка с собранным проектом
+/dist
+
+# Пакеты npm
+/node_modules
+
+# Файлы в проекте
+/src
+!/src/scss
