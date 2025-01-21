@@ -28,14 +28,9 @@ body {
   scroll-behavior: inherit;
 }
 
-:focus {
-  outline: none !important;
-}
-
 :focus-visible {
-  outline: var(--outline-focus-width) var(--outline-focus-style)
-    var(--outline-focus-color);
-  outline-offset: var(--outline-focus-offset);
+  outline: 2px solid invert;
+  outline-offset: 4px;
 }
 
 img {
