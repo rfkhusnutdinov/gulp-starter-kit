@@ -1,6 +1,6 @@
 export const serverTask = () => {
-  app.plugins.browserSync.init({
-    server: "./dist/",
+  app.browserSync.init({
+    server: app.paths.dist.watch,
     notify: false,
     ui: false,
   });

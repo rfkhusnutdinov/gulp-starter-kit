@@ -3,7 +3,8 @@
 *.code-workspace
 
 # Папка с собранным проектом
-/dist
+/dist/*
+!dist/.gitkeep
 
 # Пакеты npm
 /node_modules

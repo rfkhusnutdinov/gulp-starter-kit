@@ -1,18 +1,60 @@
 import gulp from "gulp";
 import argv from "yargs";
-
-import { paths } from "./gulp/paths.js";
-import { plugins } from "./gulp/plugins.js";
+import browserSync from "browser-sync";
+import plumber from "gulp-plumber";
 
 const env = argv(process.argv.slice(2)).argv.production
   ? "production"
   : "development";
 
-// Глобальные переменные
-global.app = {
-  paths: paths,
-  gulp: gulp,
-  plugins: plugins,
+const paths = {
+  dist: {
+    dist: "dist/**",
+    watch: "dist",
+  },
+  html: {
+    src: "src/templates/*.html",
+    watch: "src/templates/**/*.html",
+    dist: "dist",
+  },
+  scss: {
+    src: "src/scss/*.scss",
+    watch: "src/scss/**/*.scss",
+    dist: "dist/css",
+  },
+  appJs: {
+    src: "src/js/app.js",
+    dist: "dist/js",
+    watch: "src/js/**/*.js",
+  },
+  libsJs: {
+    src: "src/js/libs.js",
+    dist: "dist/js",
+    watch: "src/js/**/*.js",
+  },
+  images: {
+    src: "src/images/**/*.{png,jpg,jpeg,gif,svg,webp,ico,xml,webmanifest,mp4}",
+    dist: "dist/images",
+    watch:
+      "src/images/**/*.{png,jpg,jpeg,gif,svg,webp,ico,xml,webmanifest,mp4}",
+  },
+  fonts: {
+    src: "src/fonts/*.{woff,woff2}",
+    dist: "dist/fonts",
+    watch: "src/fonts/*.{woff,woff2}",
+  },
+  misc: {
+    src: "src/misc/**/*.*",
+    dist: "dist",
+    watch: "src/misc/**/*.*",
+  },
+};
+
+globalThis.app = {
+  paths,
+  gulp,
+  plumber,
+  browserSync,
   mode: env,
 };
 
@@ -21,33 +63,28 @@ import { fontsTask } from "./gulp/fonts.js";
 import { htmlTask } from "./gulp/html.js";
 import { stylesTask } from "./gulp/styles.js";
 import { scriptsTask } from "./gulp/scripts.js";
-import { assetsTask } from "./gulp/assets.js";
+import { imagesTask } from "./gulp/images.js";
 import { miscTask } from "./gulp/misc.js";
-// import { spriteTask } from "./gulp/sprite.js";
 import { serverTask } from "./gulp/server.js";
 
-// Наблюдатель за файлами
 const watcher = async () => {
-  gulp.watch(paths.watch.html, htmlTask);
-  gulp.watch(paths.watch.scss, stylesTask);
-  gulp.watch(paths.watch.fonts, fontsTask);
-  // gulp.watch(paths.watch.svg, spriteTask);
-  gulp.watch(paths.watch.assets, assetsTask);
-  gulp.watch(paths.watch.js, scriptsTask);
-  gulp.watch(paths.watch.misc, miscTask);
+  gulp.watch(paths.html.watch, htmlTask);
+  gulp.watch(paths.scss.watch, stylesTask);
+  gulp.watch(paths.fonts.watch, fontsTask);
+  gulp.watch(paths.images.watch, imagesTask);
+  gulp.watch(paths.appJs.watch, scriptsTask);
+  gulp.watch(paths.misc.watch, miscTask);
 };
 
-// Gulp таски
 const tasks = gulp.series(
   cleanTask,
   gulp.parallel(
     htmlTask,
     stylesTask,
     scriptsTask,
-    assetsTask,
+    imagesTask,
     fontsTask,
     miscTask
-    // spriteTask
   ),
   env == "development"
     ? gulp.parallel(serverTask, watcher)

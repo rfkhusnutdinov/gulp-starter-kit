@@ -1,26 +1,10 @@
 // * ===========================================================================
 // * GLOBAL
 // * ===========================================================================
-@import "./global/mixins";
 @import "./global/normalize";
-@import "./global/fonts";
-@import "./global/variables";
 @import "./global/global";
-
-// @import "./global/bootstrap";
 
 // * ===========================================================================
 // * COMPONENTS
 // * ===========================================================================
-@import "./components/container";
-
-// * ===========================================================================
-// * EXAMPLES
-// * ===========================================================================
-// @import "./examples/avatar";
-// @import "./examples/badge";
-// @import "./examples/breadcrumbs";
-// @import "./examples/button";
-// @import "./examples/content";
-// @import "./examples/icon";
-// @import "./examples/modal";
+// @import "./components/example";

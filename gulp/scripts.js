@@ -6,12 +6,11 @@ import terser from "@rollup/plugin-terser";
 import postcss from "rollup-plugin-postcss";
 import cssnanoPlugin from "cssnano";
 import autoprefixer from "autoprefixer";
-// import combineMediaQuery from "postcss-combine-media-query";
+import combineMediaQuery from "postcss-combine-media-query";
 
 export const scriptsTask = async () => {
-  // Сборка app.js
   const appBundle = await rollup({
-    input: app.paths.src.appJs, // Входной файл
+    input: app.paths.appJs.src,
     plugins: [
       commonjs(),
       nodeResolve(),
@@ -25,15 +24,14 @@ export const scriptsTask = async () => {
   });
 
   await appBundle.write({
-    sourcemap: app.mode === "development" ? true : false, // Sourcemap
-    format: "iife", // Выходной формат файла
-    dir: app.paths.dist.js, // Расположение выходного файла
-    entryFileNames: "js/app.js", // Название выходного файла
+    sourcemap: app.mode === "development" ? true : false,
+    format: "iife",
+    dir: app.paths.appJs.dist,
+    entryFileNames: "app.js",
   });
 
-  // Сборка libs.js
   const libsBundle = await rollup({
-    input: app.paths.src.libsJs, // Входной файл
+    input: app.paths.libsJs.src,
     plugins: [
       commonjs(),
       nodeResolve(),
@@ -46,7 +44,7 @@ export const scriptsTask = async () => {
       app.mode === "production" ? terser() : "",
       postcss({
         plugins: [
-          // combineMediaQuery(),
+          combineMediaQuery(),
           autoprefixer({
             grid: "autoplace",
             cascade: false,
@@ -64,11 +62,11 @@ export const scriptsTask = async () => {
   await libsBundle.write({
     sourcemap: app.mode === "development" ? true : false,
     format: "iife", // Выходной формат файла
-    dir: app.paths.dist.js, // Расположение выходного файла
-    entryFileNames: "js/libs.min.js", // Название выходного файла
+    dir: app.paths.libsJs.dist, // Расположение выходного файла
+    entryFileNames: "libs.min.js", // Название выходного файла
   });
 
   if (app.mode === "development") {
-    return app.plugins.browserSync.reload();
+    return app.browserSync.reload();
   }
 };

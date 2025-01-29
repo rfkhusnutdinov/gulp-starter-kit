@@ -1,9 +1,9 @@
 import imagemin, { gifsicle, optipng, mozjpeg, svgo } from "gulp-imagemin";
 import gulpIf from "gulp-if";
 
-export const assetsTask = () => {
+export const imagesTask = () => {
   return app.gulp
-    .src(app.paths.src.assets, { encoding: false })
+    .src(app.paths.images.src, { encoding: false })
     .pipe(
       gulpIf(
         app.mode === "production",
@@ -25,6 +25,6 @@ export const assetsTask = () => {
         )
       )
     )
-    .pipe(app.gulp.dest(app.paths.dist.assets))
-    .pipe(gulpIf(app.mode === "development", app.plugins.browserSync.stream()));
+    .pipe(app.gulp.dest(app.paths.images.dist))
+    .pipe(gulpIf(app.mode === "development", app.browserSync.stream()));
 };

@@ -20,17 +20,8 @@ body {
   flex-direction: column;
   height: 100%;
   min-height: 100%;
-  color: var(--color-true-black);
-  font: var(--font-body);
-  letter-spacing: 0;
-  background-color: var(--color-true-white);
   scrollbar-gutter: stable;
   scroll-behavior: inherit;
-}
-
-:focus-visible {
-  outline: 2px solid invert;
-  outline-offset: 4px;
 }
 
 img {

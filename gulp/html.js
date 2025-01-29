@@ -4,7 +4,7 @@ import fileinclude from "gulp-file-include";
 
 export const htmlTask = () => {
   return app.gulp
-    .src(app.paths.src.html)
+    .src(app.paths.html.src)
     .pipe(fileinclude())
     .pipe(
       gulpIf(
@@ -19,10 +19,10 @@ export const htmlTask = () => {
         })
       )
     )
-    .pipe(app.gulp.dest(app.paths.dist.html))
+    .pipe(app.gulp.dest(app.paths.html.dist))
     .on("end", () => {
       if (app.mode === "development") {
-        app.plugins.browserSync.reload();
+        app.browserSync.reload();
       }
     });
 };
