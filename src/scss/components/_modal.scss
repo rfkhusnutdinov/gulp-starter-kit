@@ -1,0 +1,33 @@
+/*! =====================================
+.modal
+====================================== */
+.modal {
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 80%);
+  }
+
+  &__wrapper {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+
+  &__content {
+    align-self: center;
+    width: 100%;
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #fff;
+  }
+}

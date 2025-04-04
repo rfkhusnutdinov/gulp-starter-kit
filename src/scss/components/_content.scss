@@ -1,0 +1,170 @@
+/*! =====================================
+.content
+====================================== */
+.content {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 1.5em 0 0.5em;
+  }
+
+  p {
+    margin: 1em 0;
+  }
+
+  a {
+    color: #06c;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+
+    @media (any-hover: hover) {
+      &:hover {
+        color: #004999;
+      }
+    }
+
+    &:active {
+      color: #004999;
+    }
+  }
+
+  ul,
+  ol {
+    margin: 1em 0;
+    padding-left: 2em;
+  }
+
+  li {
+    margin-bottom: 0.5em;
+  }
+
+  dl {
+    margin: 1em 0;
+  }
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin-bottom: 0.5em;
+    margin-left: 1em;
+  }
+
+  blockquote {
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    font-style: italic;
+    background-color: #f9f9f9;
+    border-left: 4px solid #ccc;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1em auto;
+  }
+
+  table {
+    width: 100%;
+    margin: 1.5em 0;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #f0f0f0;
+    }
+  }
+
+  code {
+    padding: 2px 6px;
+    font-size: 0.95em;
+    font-family: monospace;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+  }
+
+  pre {
+    margin: 1.5em 0;
+    padding: 1em;
+    overflow-x: auto;
+    background-color: #f4f4f4;
+    border-radius: 6px;
+  }
+
+  hr {
+    margin: 2em 0;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  mark {
+    padding: 0 2px;
+    background-color: #ffeb3b;
+  }
+
+  del {
+    text-decoration: line-through;
+  }
+
+  ins {
+    color: green;
+    text-decoration: underline;
+  }
+
+  sub {
+    font-size: 0.8em;
+    vertical-align: sub;
+  }
+
+  sup {
+    font-size: 0.8em;
+    vertical-align: super;
+  }
+
+  abbr {
+    text-decoration: dotted underline;
+    cursor: help;
+  }
+
+  small {
+    color: #555;
+    font-size: 0.85em;
+  }
+
+  audio,
+  video {
+    display: block;
+    max-width: 100%;
+    margin: 1em 0;
+  }
+
+  iframe {
+    max-width: 100%;
+    margin: 1.5em 0;
+    border: none;
+  }
+}

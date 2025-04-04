@@ -1,0 +1,28 @@
+/*! =====================================
+Custom scrollbar
+====================================== */
+$scrollbar-thumb-color: black;
+$scrollbar-track-color: #ccc;
+$scrollbar-width: 8px;
+$scrollbar-thumbs-border-radius: 4px;
+
+::-webkit-scrollbar {
+  width: $scrollbar-width;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $scrollbar-thumb-color;
+  border-radius: $scrollbar-thumbs-border-radius;
+}
+
+::-webkit-scrollbar-track {
+  background: $scrollbar-track-color;
+}
+
+/* stylelint-disable-next-line at-rule-no-vendor-prefix */
+@-moz-document url-prefix() {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: $scrollbar-thumb-color $scrollbar-track-color;
+  }
+}

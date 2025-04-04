@@ -1,0 +1,27 @@
+.accordion {
+  // .accordion__trigger
+  &__trigger {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      position: absolute;
+      left: 0;
+      transition: transform 0.3s;
+      content: "▶";
+    }
+  }
+
+  &[open] .accordion__trigger::before {
+    transform: rotate(90deg);
+  }
+
+  // .accordion__content
+  &__content {
+  }
+}

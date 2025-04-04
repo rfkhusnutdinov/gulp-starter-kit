@@ -1,5 +1,5 @@
 /*! =====================================
-Globals
+Global styles
 ====================================== */
 *,
 *::before,
@@ -11,44 +11,76 @@ Globals
 
 html {
   scroll-behavior: smooth;
-  height: 100%;
   scrollbar-gutter: stable;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 100%;
-  scrollbar-gutter: stable;
-  scroll-behavior: inherit;
 }
 
-img {
+a {
+  color: #06c;
+  transition: color 0.2s ease;
+
+  @media (any-hover: hover) {
+    &:hover {
+      color: #004999;
+    }
+  }
+
+  &:active {
+    color: #004999;
+  }
+}
+
+ul,
+ol {
+  padding-left: 1.5em;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img,
+video,
+audio,
+iframe {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
-a {
-  color: inherit;
+iframe {
+  border: none;
 }
 
-img:not([src], [srcset]) {
-  visibility: hidden;
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-main {
-  flex-grow: 1;
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  clip: rect(0 0 0 0);
+:focus {
+  outline-width: 0 !important;
+}
+
+:focus-visible {
+  outline-width: 2px !important;
+  outline-offset: 3px !important;
+}
+
+/* stylelint-disable-next-line at-rule-no-vendor-prefix */
+@-moz-document url-prefix() {
+  :focus {
+    outline: 2px solid #ffd700 !important;
+  }
 }
