@@ -62,8 +62,8 @@ export const scriptsTask = async () => {
   await libsBundle.write({
     sourcemap: app.mode === "development" ? true : false,
     format: "iife", // Выходной формат файла
-    dir: app.paths.libsJs.dist, // Расположение выходного файла
-    entryFileNames: "libs.min.js", // Название выходного файла
+    dir: app.paths.dist, // Расположение выходного файла
+    entryFileNames: "js/libs.min.js", // Название выходного файла
   });
 
   if (app.mode === "development") {

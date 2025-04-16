@@ -9,7 +9,7 @@ const env = argv(process.argv.slice(2)).argv.production
 
 const paths = {
   dist: {
-    dist: "dist/**",
+    dist: "dist",
     watch: "dist",
   },
   html: {
