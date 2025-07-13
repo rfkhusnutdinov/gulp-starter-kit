@@ -3,7 +3,6 @@ import autoPrefixer from "gulp-autoprefixer";
 import mincss from "gulp-clean-css";
 import rename from "gulp-rename";
 import * as dartSass from "sass";
-import groupmedia from "gulp-group-css-media-queries";
 import gulpIf from "gulp-if";
 
 const scss = gulpSass(dartSass);
@@ -20,7 +19,6 @@ export const stylesTask = () => {
         scss()
       )
     )
-    .pipe(groupmedia())
     .pipe(
       autoPrefixer({
         grid: "autoplace",
@@ -32,7 +30,7 @@ export const stylesTask = () => {
         app.mode === "production",
         mincss({
           format: "beautify",
-          level: 2,
+          level: 1,
         })
       )
     )

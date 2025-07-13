@@ -1,6 +1,6 @@
-/*! =====================================
-Global styles
-====================================== */
+// ==========================================
+// Global Styles
+// ==========================================
 *,
 *::before,
 *::after {
@@ -11,14 +11,15 @@ Global styles
 
 html {
   scroll-behavior: smooth;
-  scrollbar-gutter: stable;
+
+  // scrollbar-gutter: stable;
 }
 
 body {
 }
 
 a {
-  color: #06c;
+  color: inherit;
   transition: color 0.2s ease;
 
   @media (any-hover: hover) {
@@ -64,9 +65,9 @@ table {
 
 th,
 td {
-  padding: 8px;
+  padding: rem(8);
   text-align: left;
-  border: 1px solid #ddd;
+  border: rem(1) solid #ddd;
 }
 
 :focus {
@@ -74,13 +75,13 @@ td {
 }
 
 :focus-visible {
-  outline-width: 2px !important;
-  outline-offset: 3px !important;
+  outline-width: rem(2) !important;
+  outline-offset: rem(3) !important;
 }
 
 /* stylelint-disable-next-line at-rule-no-vendor-prefix */
 @-moz-document url-prefix() {
   :focus {
-    outline: 2px solid #ffd700 !important;
+    outline: rem(2) solid #ffd700 !important;
   }
 }

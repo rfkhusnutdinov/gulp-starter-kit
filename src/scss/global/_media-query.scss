@@ -1,0 +1,51 @@
+// ==========================================
+// Media Query
+// ==========================================
+
+/// Media query mixin
+/// @param {String} $breakpoint - one of the keys from $breakpoints
+/// @param {String} $direction - 'up' | 'down' | 'only'
+/// @content - the CSS rules inside the media query
+
+@mixin media-breakpoint($breakpoint, $direction: down) {
+  $min: map-get($breakpoints, $breakpoint);
+
+  @if $min == null {
+    @error "No value found for breakpoint `#{$breakpoint}`.";
+  }
+
+  $keys: map-keys($breakpoints);
+  $index: index($keys, $breakpoint);
+
+  @if $direction == up {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else if $direction == down {
+    $next-index: $index;
+    @if $next-index > length($keys) {
+      @content;
+    } @else {
+      $next-key: nth($keys, $next-index);
+      $max: map-get($breakpoints, $next-key);
+      @media (max-width: ($max - 0.02px)) {
+        @content;
+      }
+    }
+  } @else if $direction == only {
+    $next-index: $index + 1;
+    @if $next-index > length($keys) {
+      @media (min-width: $min) {
+        @content;
+      }
+    } @else {
+      $next-key: nth($keys, $next-index);
+      $max: map-get($breakpoints, $next-key);
+      @media (min-width: $min) and (max-width: ($max - 0.02px)) {
+        @content;
+      }
+    }
+  } @else {
+    @error "Unknown direction `#{$direction}`. Use up, down or only.";
+  }
+}

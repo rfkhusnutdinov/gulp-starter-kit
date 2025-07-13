@@ -1,0 +1,22 @@
+// ==========================================
+// Functions
+// ==========================================
+@use "sass:math";
+
+/// Convert pixels to rem units
+/// @param {Number} $px - The pixel value to convert
+/// @param {Number} $base - The base font size (default: 16)
+/// @return {Number} - The value in rem
+
+@function rem($px, $base: 16) {
+  @return math.div($px, $base) * 1rem;
+}
+
+/// Convert pixels to vw units
+/// @param {Number} $px - The pixel value to convert
+/// @param {Number} $viewport - The width of screen by design
+/// @return {Number} - The value in vw
+
+@function vw($px, $viewport: 1440) {
+  @return math.div($px, $viewport) * 100vw;
+}

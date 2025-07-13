@@ -25,7 +25,6 @@
     "gulp-clean-css": "4.3.0",
     "gulp-file-include": "2.3.0",
     "gulp-format-html": "3.0.0",
-    "gulp-group-css-media-queries": "1.2.2",
     "gulp-if": "3.0.0",
     "gulp-imagemin": "7.1.0",
     "gulp-plumber": "1.2.1",
@@ -40,7 +39,5 @@
     "stylelint-config-standard-scss": "14.0.0",
     "yargs": "17.7.2"
   },
-  "dependencies": {
-    "bootstrap": "5.3.3"
-  }
+  "dependencies": {}
 }

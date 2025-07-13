@@ -1,3 +1,7 @@
+/**
+ * Modals
+ */
+
 const closeModal = function (modal) {
   if (modal instanceof Element) {
     modal?.close();
