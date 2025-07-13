@@ -29,7 +29,7 @@ const paths = {
   },
   libsJs: {
     src: "src/js/libs.js",
-    dist: "dist/js",
+    dist: "dist",
     watch: "src/js/**/*.js",
   },
   images: {
