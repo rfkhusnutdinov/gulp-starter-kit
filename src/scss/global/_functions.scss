@@ -4,19 +4,56 @@
 @use "sass:math";
 
 /// Convert pixels to rem units
+///
 /// @param {Number} $px - The pixel value to convert
 /// @param {Number} $base - The base font size (default: 16)
+///
 /// @return {Number} - The value in rem
 
 @function rem($px, $base: 16) {
   @return math.div($px, $base) * 1rem;
 }
 
-/// Convert pixels to vw units
-/// @param {Number} $px - The pixel value to convert
-/// @param {Number} $viewport - The width of screen by design
-/// @return {Number} - The value in vw
+/// Round a number to a given number of decimal places.
+///
+/// @param {Number} $number - The number to round.
+/// @param {Number} $decimals [0] - The number of decimal places to round to. Must be a non-negative integer.
+///
+/// @return {Number} - The rounded number.
 
-@function vw($px, $viewport: 1440) {
-  @return math.div($px, $viewport) * 100vw;
+@function round($number, $decimals: 0) {
+  $n: 1;
+  @if $decimals > 0 {
+    @for $i from 1 through $decimals {
+      $n: $n * 10;
+    }
+  }
+  @return math.div(math.round($number * $n), $n);
+}
+
+/// Generate a fluid value using CSS `clamp()` based on viewport width.
+///
+/// This function calculates a responsive size that scales between a minimum
+/// and maximum value using a linear interpolation between `$min-breakpoint`
+/// and `$max-breakpoint`.
+///
+/// Requires that `$min-breakpoint` and `$max-breakpoint` be defined globally (in px).
+///
+/// @param {Number} $min-size - Minimum size (in rem, px, or unitless number).
+/// @param {Number} $max-size - Maximum size (in rem, px, or unitless number).
+///
+/// @return {String} - A CSS `clamp()` expression that produces a fluid value.
+
+@function fluid($min-size, $max-size) {
+  $slope: math.div($max-size - $min-size, $max-breakpoint - $min-breakpoint);
+  $slope-to-unit: round($slope * 100, 2);
+  $intercept-rem: round($min-size - $slope * $min-breakpoint, 2);
+  $min-size-rem: round($min-size, 2);
+  $max-size-rem: round($max-size, 2);
+
+  @return clamp(
+    #{$min-size-rem},
+    #{$slope-to-unit}vw + #{$intercept-rem},
+    #{$max-size-rem}
+  );
 }

@@ -3,9 +3,12 @@
 // ==========================================
 $breakpoints: (
   xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px,
+  sm: rem(576),
+  md: rem(768),
+  lg: rem(992),
+  xl: rem(1200),
+  xxl: rem(1400),
 );
+$min-breakpoint: rem(320);
+$max-breakpoint: rem(1400);
+$max-viewport-width: rem(1400);
