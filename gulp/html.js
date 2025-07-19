@@ -1,11 +1,13 @@
 import GulpFormatHtml from "gulp-format-html";
 import gulpIf from "gulp-if";
 import fileinclude from "gulp-file-include";
+import typograf from "gulp-typograf";
 
 export const htmlTask = () => {
   return app.gulp
     .src(app.paths.html.src)
     .pipe(fileinclude())
+    .pipe(typograf({ locale: ["ru", "en-US"] }))
     .pipe(
       gulpIf(
         app.mode === "production",

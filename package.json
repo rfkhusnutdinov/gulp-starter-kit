@@ -30,6 +30,7 @@
     "gulp-plumber": "1.2.1",
     "gulp-rename": "2.0.0",
     "gulp-sass": "6.0.0",
+    "gulp-typograf": "^4.1.0",
     "postcss-combine-media-query": "1.0.1",
     "rollup": "4.28.1",
     "rollup-plugin-postcss": "4.0.2",
@@ -38,6 +39,5 @@
     "stylelint-config-rational-order": "0.1.2",
     "stylelint-config-standard-scss": "14.0.0",
     "yargs": "17.7.2"
-  },
-  "dependencies": {}
+  }
 }
