@@ -2,12 +2,21 @@ import GulpFormatHtml from "gulp-format-html";
 import gulpIf from "gulp-if";
 import fileinclude from "gulp-file-include";
 import typograf from "gulp-typograf";
+import replace from "gulp-replace";
 
 export const htmlTask = () => {
   return app.gulp
     .src(app.paths.html.src)
     .pipe(fileinclude())
-    .pipe(typograf({ locale: ["ru", "en-US"] }))
+    .pipe(
+      typograf({
+        locale: ["ru", "en-US"],
+        safeTags: [
+          ["<no-typograf>", "</no-typograf>"], // защищённый тег
+        ],
+      })
+    )
+    .pipe(replace(/<\/?no-typograf>/g, ""))
     .pipe(
       gulpIf(
         app.mode === "production",
