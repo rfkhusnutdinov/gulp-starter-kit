@@ -11,9 +11,7 @@ export const htmlTask = () => {
     .pipe(
       typograf({
         locale: ["ru", "en-US"],
-        safeTags: [
-          ["<no-typograf>", "</no-typograf>"], // защищённый тег
-        ],
+        safeTags: [["<no-typograf>", "</no-typograf>"]],
       })
     )
     .pipe(replace(/<\/?no-typograf>/g, ""))

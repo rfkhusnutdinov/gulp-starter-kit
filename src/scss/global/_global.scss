@@ -11,8 +11,6 @@
 
 html {
   scroll-behavior: smooth;
-
-  // scrollbar-gutter: stable;
 }
 
 body {
@@ -24,12 +22,14 @@ a {
 
   @media (any-hover: hover) {
     &:hover {
-      color: #004999;
+      color: inherit;
+      text-decoration: none;
     }
   }
 
   &:active {
-    color: #004999;
+    color: inherit;
+    text-decoration: none;
   }
 }
 

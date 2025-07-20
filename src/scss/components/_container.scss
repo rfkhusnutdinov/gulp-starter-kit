@@ -1,0 +1,11 @@
+// ==========================================
+// .container
+// ==========================================
+.container {
+  --container-width: #{rem(1360)};
+  --container-padding-x: #{rem(15)}
+
+  width: min(var(--container-width), calc(100% - 2 * var(--container-padding-x)));
+
+  margin-inline: auto;
+}
