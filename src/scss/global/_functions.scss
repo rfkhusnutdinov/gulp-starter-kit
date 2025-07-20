@@ -37,10 +37,10 @@
 /// and maximum value using a linear interpolation between `$min-breakpoint`
 /// and `$max-breakpoint`.
 ///
-/// Requires that `$min-breakpoint` and `$max-breakpoint` be defined globally (in px).
+/// Requires that `$min-breakpoint` and `$max-breakpoint` be defined globally (in rem).
 ///
-/// @param {Number} $min-size - Minimum size (in rem, px, or unitless number).
-/// @param {Number} $max-size - Maximum size (in rem, px, or unitless number).
+/// @param {Number} $min-size - Minimum size (in rem).
+/// @param {Number} $max-size - Maximum size (in rem).
 ///
 /// @return {String} - A CSS `clamp()` expression that produces a fluid value.
 
@@ -56,4 +56,25 @@
     #{$slope-to-unit}vw + #{$intercept-rem},
     #{$max-size-rem}
   );
+}
+
+/// Generate a fluid value that decreases from `$max-size` to `$min-size` across breakpoints.
+///
+/// This is a wrapper around the `fluid()` function, which calculates a fluid size
+/// that grows from 0 to `$max-size - $min-size`, and subtracts it from `$max-size`.
+///
+/// The result is a `calc()` expression that **decreases** with screen width:
+/// - At the smallest screen (`$min-breakpoint`) → `$max-size`
+/// - At the largest screen (`$max-breakpoint`) → `$min-size`
+///
+/// @param {Number} $min-size - The minimum size (in rem).
+/// @param {Number} $max-size - The maximum size (in rem).
+///
+/// @return {String} - A `calc(...)` expression for a fluid value that decreases with screen width.
+
+@function fluid-reverse($min-size, $max-size) {
+  $size-rem: $max-size - $min-size;
+  $fluid-value: fluid(rem(0), $size-rem);
+
+  @return calc(#{$max-size} - #{$fluid-value});
 }
