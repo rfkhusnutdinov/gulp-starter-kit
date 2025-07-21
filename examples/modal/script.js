@@ -2,6 +2,8 @@
  * Modals
  */
 
+const shouldLockBody = true;
+
 const closeModal = function (modal) {
   if (modal instanceof Element) {
     modal?.close();
@@ -12,6 +14,15 @@ const closeModal = function (modal) {
       "closeModal: Property `modal` must be HTMLElement or string!"
     );
   }
+
+  if (shouldLockBody) {
+    requestAnimationFrame(() => {
+      const stillOpen = document.querySelector("dialog[open]");
+      if (!stillOpen) {
+        document.body.style.overflow = "";
+      }
+    });
+  }
 };
 
 const closeOpenModal = function () {
@@ -20,8 +31,16 @@ const closeOpenModal = function () {
 
 const openModal = function (modal) {
   if (modal instanceof Element) {
+    if (shouldLockBody) {
+      document.body.style.overflow = "hidden";
+    }
+
     modal.showModal();
   } else if (typeof modal === "string") {
+    if (shouldLockBody) {
+      document.body.style.overflow = "hidden";
+    }
+
     document.querySelector(modal)?.showModal();
   } else {
     console.error("openModal: Property `modal` must be HTMLElement or string!");
@@ -43,6 +62,10 @@ const modals = document.querySelectorAll(".modal");
 
 [...modals].forEach((modal) => {
   modal.addEventListener("click", (e) => {
+    closeModal(modal);
+  });
+
+  modal.addEventListener("close", (e) => {
     closeModal(modal);
   });
 
