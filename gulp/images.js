@@ -1,15 +1,21 @@
 import imagemin, { gifsicle, optipng, mozjpeg, svgo } from "gulp-imagemin";
 import gulpIf from "gulp-if";
 import webp from "gulp-webp";
+import newer from "gulp-newer";
 
 export const imagesTask = () => {
   return app.gulp
     .src(app.paths.images.src, { encoding: false })
     .pipe(
       gulpIf(
-        (file) => {
-          return [".jpg", ".jpeg", ".png"].includes(file.extname);
-        },
+        (file) => [".jpg", ".jpeg", ".png"].includes(file.extname),
+        newer({ dest: app.paths.images.dist, ext: ".webp" }),
+        newer(app.paths.images.dist)
+      )
+    )
+    .pipe(
+      gulpIf(
+        (file) => [".jpg", ".jpeg", ".png"].includes(file.extname),
         webp({
           quality: 75,
           method: 6,
