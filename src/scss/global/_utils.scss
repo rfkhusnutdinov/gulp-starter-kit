@@ -1,0 +1,27 @@
+// .list-reset
+.list-reset {
+  padding-left: 0;
+  list-style: none;
+  margin-block: 0;
+
+  & > li {
+    margin-bottom: 0;
+  }
+}
+
+// .text-nowrap
+.text-nowrap {
+  white-space: nowrap;
+}
+
+// .sr-only
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
+}

@@ -2,22 +2,54 @@
 // .button
 // ==========================================
 .button {
+  --button-background-color: initial;
+  --button-background-color-hover: initial;
+  --button-border-color: initial;
+  --button-border-color-hover: initial;
+  --button-color: initial;
+  --button-color-hover: initial;
+  --button-radius: initial;
+  --button-border-width: initial;
+  --button-padding-x: initial;
+  --button-padding-y: initial;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
   max-width: 100%;
+  padding: var(--button-padding-y) var(--button-padding-x);
+  color: var(--button-color);
   text-align: center;
   text-decoration: none;
+  background-color: var(--button-background-color);
+  border: var(--button-border-width) solid var(--button-border-color);
+  border-radius: var(--button-radius);
   cursor: pointer;
 
-  @media (any-hover: hover) {
-    &:hover {
-    }
-  }
-
-  &:active {
+  @include hover {
+    color: var(--button-color-hover);
+    background-color: var(--button-background-color-hover);
+    border-color: var(--button-border-color-hover);
   }
 
   &:disabled {
+  }
+
+  &--color-primary {
+  }
+
+  &--color-secondary {
+  }
+
+  &--variant-solid {
+  }
+
+  &--variant-outlined {
+  }
+
+  &--size-large {
+  }
+
+  &--size-small {
   }
 }

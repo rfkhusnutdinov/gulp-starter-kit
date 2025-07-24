@@ -1,0 +1,27 @@
+// ==========================================
+// .page
+// ==========================================
+.page {
+  // .page__body
+  &__body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+
+  // .page__header
+  &__header {
+  }
+
+  // .page__main
+  &__main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  // .page__footer
+  &__footer {
+    margin-top: auto;
+  }
+}
