@@ -22,27 +22,25 @@ export const imagesTask = () => {
           nearLossless: 0,
           lossless: false,
           alphaQuality: 80,
-        })
-      )
-    )
-    .pipe(
-      gulpIf(
-        app.mode === "production",
-        imagemin(
-          [
-            mozjpeg({
-              quality: 80,
-              progressive: true,
-            }),
-            optipng({
-              optimizationLevel: 3,
-            }),
-            gifsicle(),
-            svgo(),
-          ],
-          {
-            verbose: true,
-          }
+        }),
+        gulpIf(
+          app.mode === "production",
+          imagemin(
+            [
+              mozjpeg({
+                quality: 80,
+                progressive: true,
+              }),
+              optipng({
+                optimizationLevel: 3,
+              }),
+              gifsicle(),
+              svgo(),
+            ],
+            {
+              verbose: true,
+            }
+          )
         )
       )
     )
