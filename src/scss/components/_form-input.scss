@@ -1,23 +1,7 @@
-// ==========================================
-// .form-input
-// ==========================================
+/*! ==========================================================================
+ *  .form-input
+ *  ========================================================================== */
 .form-input {
-  --input-background-color: initial;
-  --input-color: inherit;
-  --input-radius: initial;
-  --input-font: initial;
-  --input-border-color: initial;
-  --input-border-width: initial;
-  --input-placeholder-color: inherit;
-  --input-padding-x: initial;
-  --input-padding-y: initial;
-
-  padding: var(--button-padding-y) var(--input-padding-x);
-  color: var(--input-color);
-  background-color: var(--input-background-color);
-  border: var(--input-border-width) solid var(--input-border-color);
-  border-radius: var(--input-radius);
-
   &:focus {
     &::placeholder {
       opacity: 0;
@@ -25,7 +9,6 @@
   }
 
   &::placeholder {
-    color: var(--input-placeholder-color);
     opacity: 0.5;
   }
 }

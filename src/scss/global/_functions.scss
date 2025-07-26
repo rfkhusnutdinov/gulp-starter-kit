@@ -3,23 +3,29 @@
 // ==========================================
 @use "sass:math";
 
-/// Convert pixels to rem units
+/// Преобразует значение в пикселях в значение в `rem`.
 ///
-/// @param {Number} $px - The pixel value to convert
-/// @param {Number} $base - The base font size (default: 16)
+/// Удобна для перевода фиксированных значений (например, `px` из дизайна) в `rem`,
+/// основываясь на базовом размере шрифта (по умолчанию 16px).
 ///
-/// @return {Number} - The value in rem
+/// @param {Number} $px - Значение в пикселях.
+/// @param {Number} $base [16] - Базовый размер шрифта (по умолчанию 16px).
+///
+/// @return {Number} Значение в `rem`.
 
 @function rem($px, $base: 16) {
   @return math.div($px, $base) * 1rem;
 }
 
-/// Round a number to a given number of decimal places.
+/// Округляет число до заданного количества знаков после запятой.
 ///
-/// @param {Number} $number - The number to round.
-/// @param {Number} $decimals [0] - The number of decimal places to round to. Must be a non-negative integer.
+/// Функция умножает число на 10 в степени `$decimals`, округляет, а затем делит обратно.
+/// Полезна для точного округления чисел в SCSS, например при расчётах адаптивных размеров.
 ///
-/// @return {Number} - The rounded number.
+/// @param {Number} $number - Число, которое нужно округлить.
+/// @param {Number} $decimals [0] - Количество знаков после запятой (по умолчанию 0).
+///
+/// @return {Number} Округлённое значение.
 
 @function round($number, $decimals: 0) {
   $n: 1;
@@ -31,50 +37,64 @@
   @return math.div(math.round($number * $n), $n);
 }
 
-/// Generate a fluid value using CSS `clamp()` based on viewport width.
+/// Добавляет минимальное значение к нулевым числам с единицами, чтобы избежать проблем с `clamp()`
 ///
-/// This function calculates a responsive size that scales between a minimum
-/// and maximum value using a linear interpolation between `$min-breakpoint`
-/// and `$max-breakpoint`.
+/// При значении `0` SCSS может генерировать `0` без единицы измерения (`rem`, `px` и т.д.), что вызывает
+/// ошибки или некорректную интерпретацию в CSS, особенно в функциях вроде `clamp()`.
+/// Эта функция добавляет маленькое значение (`0.001rem`), чтобы гарантировать наличие единицы.
 ///
-/// Requires that `$min-breakpoint` and `$max-breakpoint` be defined globally (in rem).
+/// @param {Number} $value - Числовое значение (может быть с единицей, например `0rem`, `1.2rem`)
 ///
-/// @param {Number} $min-size - Minimum size (in rem).
-/// @param {Number} $max-size - Maximum size (in rem).
-///
-/// @return {String} - A CSS `clamp()` expression that produces a fluid value.
+/// @return {Number} Значение с гарантированной единицей `rem`, если оно ноль или близко к нулю.
 
-@function fluid($min-size, $max-size) {
-  $slope: math.div($max-size - $min-size, $max-breakpoint - $min-breakpoint);
-  $slope-to-unit: round($slope * 100, 2);
-  $intercept-rem: round($min-size - $slope * $min-breakpoint, 2);
-  $min-size-rem: round($min-size, 2);
-  $max-size-rem: round($max-size, 2);
-
-  @return clamp(
-    #{$min-size-rem},
-    #{$slope-to-unit}vw + #{$intercept-rem},
-    #{$max-size-rem}
-  );
+@function normalize-zero($value) {
+  @if $value >= 0 {
+    @return $value + 0.001rem;
+  }
+  @return $value;
 }
 
-/// Generate a fluid value that decreases from `$max-size` to `$min-size` across breakpoints.
+/// Генерирует адаптивное значение с использованием `clamp()` в единицах `rem`,
+/// автоматически определяя направление (прямое или обратное).
 ///
-/// This is a wrapper around the `fluid()` function, which calculates a fluid size
-/// that grows from 0 to `$max-size - $min-size`, and subtracts it from `$max-size`.
+/// Если `$start-size > $end-size`, функция создаёт `clamp()` с ростом значений от `$end-size` до `$start-size`.
+/// Если наоборот — возвращает убывающее значение через `calc()` и внутренний вызов `fluid-rem()`.
 ///
-/// The result is a `calc()` expression that **decreases** with screen width:
-/// - At the smallest screen (`$min-breakpoint`) → `$max-size`
-/// - At the largest screen (`$max-breakpoint`) → `$min-size`
+/// Используется для создания адаптивных размеров (например, отступов, шрифтов и т.п.),
+/// основанных на промежутке между `$min-breakpoint` и `$max-breakpoint`.
 ///
-/// @param {Number} $min-size - The minimum size (in rem).
-/// @param {Number} $max-size - The maximum size (in rem).
+/// ⚠️ Требует глобально определённых переменных:
+/// - `$min-breakpoint` — минимальная ширина в `px`
+/// - `$max-breakpoint` — максимальная ширина в `px`
 ///
-/// @return {String} - A `calc(...)` expression for a fluid value that decreases with screen width.
+/// @param {Number} $start-size - Начальное значение в `px`.
+/// @param {Number} $end-size - Конечное значение в `px`.
+///
+/// @return {Number} Адаптивное CSS-значение через `clamp()` или `calc()`, в `rem`.
 
-@function fluid-reverse($min-size, $max-size) {
-  $size-rem: $max-size - $min-size;
-  $fluid-value: fluid(rem(0), $size-rem);
+@function fluid-rem($start-size, $end-size) {
+  @if $start-size > $end-size {
+    $slope: math.div(
+      rem($start-size) - rem($end-size),
+      $max-breakpoint - $min-breakpoint
+    );
+    $slope-to-unit: round($slope * 100, 3);
+    $intercept-rem: normalize-zero(
+      round(rem($end-size) - $slope * $min-breakpoint, 3)
+    );
+    $start-size-rem: normalize-zero(round(rem($start-size), 3));
+    $end-size-rem: normalize-zero(round(rem($end-size), 3));
 
-  @return calc(#{$max-size} - #{$fluid-value});
+    @return clamp(
+      #{$end-size-rem},
+      #{$slope-to-unit}vw + #{$intercept-rem},
+      #{$start-size-rem}
+    );
+  } @else {
+    $size-delta: $end-size - $start-size;
+    $fluid-value: fluid-rem($size-delta, 0);
+    $end-size-rem: round(rem($end-size), 2);
+
+    @return calc(#{$end-size-rem} - #{$fluid-value});
+  }
 }

@@ -6,7 +6,7 @@
 /// @param {String} $breakpoint - one of the keys from $breakpoints
 /// @param {String} $direction - 'up' | 'down' | 'only'
 /// @content - the CSS rules inside the media query
-///
+
 @mixin media-breakpoint($breakpoint, $direction: down) {
   $min: map-get($breakpoints, $breakpoint);
 
