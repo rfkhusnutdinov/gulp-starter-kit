@@ -64,8 +64,8 @@
 /// основанных на промежутке между `$min-breakpoint` и `$max-breakpoint`.
 ///
 /// ⚠️ Требует глобально определённых переменных:
-/// - `$min-breakpoint` — минимальная ширина в `px`
-/// - `$max-breakpoint` — максимальная ширина в `px`
+/// - `$min-breakpoint` — минимальная ширина в `rem`
+/// - `$max-breakpoint` — максимальная ширина в `rem`
 ///
 /// @param {Number} $start-size - Начальное значение в `px`.
 /// @param {Number} $end-size - Конечное значение в `px`.

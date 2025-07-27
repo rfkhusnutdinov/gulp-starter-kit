@@ -6,7 +6,13 @@
   "type": "module",
   "scripts": {
     "dev": "gulp",
-    "prod": "gulp --production"
+    "build": "gulp --production",
+    "build:html": "gulp htmlTask",
+    "build:styles": "gulp stylesTask",
+    "build:scripts": "gulp scriptsTask",
+    "build:fonts": "gulp fontsTask",
+    "build:misc": "gulp miscTask",
+    "build:images": "gulp imagesTask"
   },
   "author": "Rinat Khusnutdinov",
   "license": "MIT",

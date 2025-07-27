@@ -91,4 +91,11 @@ const tasks = gulp.series(
     : gulp.parallel(miscTask)
 );
 
+export { htmlTask };
+export { stylesTask };
+export { fontsTask };
+export { imagesTask };
+export { scriptsTask };
+export { miscTask };
+
 export default tasks;
