@@ -2,16 +2,16 @@
  * Ajax
  */
 
-[...document.querySelectorAll(".form")].forEach((form) => {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+[...document.querySelectorAll(".ajax-form")].forEach((form) => {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-    const formSubmitButton = form.querySelector("button[type='submit']");
+    const formSubmitButton = event.submitter;
     formSubmitButton.disabled = true;
 
     const formData = new FormData(form);
 
-    fetch(form.getAttribute("action") ?? "send.php", {
+    fetch(form.getAttribute("action"), {
       method: "POST",
       body: formData,
     })
@@ -24,7 +24,7 @@
           // Что-то должно произойти
         }
       })
-      .catch(() => {
+      .catch((error) => {
         // Что-то должно произойти
       })
       .finally(() => {

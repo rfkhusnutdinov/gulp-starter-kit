@@ -1,3 +1,6 @@
+/*! ==========================================================================
+ *  .modal
+ *  ========================================================================== */
 .modal {
   box-sizing: border-box;
   width: 100vw;
@@ -12,6 +15,7 @@
     background: rgba(0, 0, 0, 80%);
   }
 
+  // .modal__wrapper
   &__wrapper {
     display: grid;
     width: 100%;
@@ -19,6 +23,7 @@
     overflow: auto;
   }
 
+  // .modal__content
   &__content {
     align-self: center;
     width: 100%;
@@ -26,5 +31,9 @@
     margin-right: auto;
     margin-left: auto;
     background-color: #fff;
+  }
+
+  // .modal__close-button
+  &__close-button {
   }
 }

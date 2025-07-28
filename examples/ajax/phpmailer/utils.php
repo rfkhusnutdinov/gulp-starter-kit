@@ -1,24 +1,24 @@
 <?php
-/**
- * @param array associative array $array with data
- * @return string unchanged
- */
-function form_mail_body(array $array, )
-{
+function humanize_key($key) {
+    $key = preg_replace('/[_\-]+/', ' ', $key);
+    $key = preg_replace('/([a-z])([A-Z])/', '$1 $2', $key);
+    return ucfirst(strtolower($key));
+}
+
+
+function generate_html_body(array $post, ) {
   $body = "";
 
-  foreach ( $array as $key => $value ) {
+  foreach ( $post as $key => $value ) {
     if ( $value != "" ) {
-      $key = array_key_exists($key, FIELDS_ASSOCIATION) ? FIELDS_ASSOCIATION[$key] : $key;
+      $key = array_key_exists($key, FIELD_LABELS) ? FIELD_LABELS[$key] : humanize_key($key);
 
-      if ($key != "agree") {
-        $body .= "
-          <tr style='background-color: #f8f8f8;'>
-            <td style='padding: 10px; border: #e9e9e9 1px solid;'><b>$key</b></td>
-            <td style='padding: 10px; border: #e9e9e9 1px solid;'>" . ( is_array($value) ? htmlspecialchars(implode(', ', $value)) : nl2br(htmlspecialchars($value) )) ."</td>
-          </tr>
-        ";
-      }
+      $body .= "
+        <tr style='background-color: #f8f8f8;'>
+          <td style='padding: 10px; border: #e9e9e9 1px solid;'><b>$key</b></td>
+          <td style='padding: 10px; border: #e9e9e9 1px solid;'>" . ( is_array($value) ? htmlspecialchars(implode(', ', $value)) : nl2br(htmlspecialchars($value) )) ."</td>
+        </tr>
+      ";
     }
   }
 
@@ -29,13 +29,12 @@ function form_mail_body(array $array, )
  * @param array associative array $array with data
  * @return string unchanged
  */
-function form_telegram_text(array $array)
-{
+function generate_telegram_text(array $array) {
   $text = "";
 
   foreach ( $array as $key => $value ) {
     if ( $value != "" ) {
-      $key = array_key_exists($key, FIELDS_ASSOCIATION) ? FIELDS_ASSOCIATION[$key] : $key;
+      $key = array_key_exists($key, FIELD_LABELS) ? FIELD_LABELS[$key] : $key;
 
       $text .= "<b>$key:</b> ". ( is_array($value) ? htmlspecialchars(trim(implode(', ', $value))) : htmlspecialchars(trim($value)) ) . "\n";
     }
@@ -68,3 +67,4 @@ function incoming_files() {
   }
   return $files3;
 }
+
