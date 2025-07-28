@@ -3,11 +3,12 @@ import gulpIf from "gulp-if";
 import fileinclude from "gulp-file-include";
 import typograf from "gulp-typograf";
 import replace from "gulp-replace";
+import pug from "gulp-pug";
 
 export const htmlTask = () => {
   return app.gulp
     .src(app.paths.html.src)
-    .pipe(fileinclude())
+    .pipe(pug())
     .pipe(
       typograf({
         locale: ["ru", "en-US"],
