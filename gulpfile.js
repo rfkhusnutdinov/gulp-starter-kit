@@ -13,8 +13,8 @@ const paths = {
     watch: "dist",
   },
   html: {
-    src: "src/templates/*.pug",
-    watch: "src/templates/**/*.pug",
+    src: "src/templates/*.{html,njk}",
+    watch: "src/templates/**/*.{html,njk}",
     dist: "dist",
   },
   scss: {
@@ -84,11 +84,11 @@ const tasks = gulp.series(
     scriptsTask,
     imagesTask,
     fontsTask,
-    miscTask
+    miscTask,
   ),
   env == "development"
     ? gulp.parallel(serverTask, watcher)
-    : gulp.parallel(miscTask)
+    : gulp.parallel(miscTask),
 );
 
 export { htmlTask };

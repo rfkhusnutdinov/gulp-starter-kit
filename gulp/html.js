@@ -1,19 +1,18 @@
 import GulpFormatHtml from "gulp-format-html";
 import gulpIf from "gulp-if";
-import fileinclude from "gulp-file-include";
 import typograf from "gulp-typograf";
 import replace from "gulp-replace";
-import pug from "gulp-pug";
+import { nunjucksCompile } from "gulp-nunjucks";
 
 export const htmlTask = () => {
   return app.gulp
     .src(app.paths.html.src)
-    .pipe(pug())
+    .pipe(nunjucksCompile())
     .pipe(
       typograf({
         locale: ["ru", "en-US"],
         safeTags: [["<no-typograf>", "</no-typograf>"]],
-      })
+      }),
     )
     .pipe(replace(/<\/?no-typograf>/g, ""))
     .pipe(
@@ -26,8 +25,8 @@ export const htmlTask = () => {
           editorconfig: true,
           end_with_newline: true,
           wrap_line_length: 0,
-        })
-      )
+        }),
+      ),
     )
     .pipe(app.gulp.dest(app.paths.html.dist))
     .on("end", () => {
