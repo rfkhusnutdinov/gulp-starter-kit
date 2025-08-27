@@ -2,76 +2,98 @@
  * Modals
  */
 
-const shouldLockBody = true;
+class Modal {
+  constructor(options = {}) {
+    const defaults = {
+      shouldLockBody: true,
+    };
 
-const closeModal = function (modal) {
-  if (modal instanceof Element) {
-    modal?.close();
-  } else if (typeof modal === "string") {
-    document.querySelector(modal)?.close();
-  } else {
-    console.error(
-      "closeModal: Property `modal` must be HTMLElement or string!"
-    );
+    this.settings = { ...defaults, ...options };
+    this.buttonSelector = "[data-modal-target]";
+    this.buttonTargetAttribute = "data-modal-target";
+    this.modalSelector = "[data-modal]";
+    this.modalContentSelector = "[data-modal-content]";
+
+    this.buttons = document.querySelectorAll(this.settings.buttonsSelector);
+    this.modals = document.querySelectorAll(this.settings.modalsSelector);
+
+    this.init();
   }
 
-  if (shouldLockBody) {
-    requestAnimationFrame(() => {
-      const stillOpen = document.querySelector("dialog[open]");
-      if (!stillOpen) {
-        document.body.style.overflow = "";
-      }
+  init() {
+    [...this.buttons].forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const modalSelector = button.getAttribute(this.buttonTargetAttribute);
+        this.openModal(modalSelector);
+      });
+    });
+
+    [...this.modals].forEach((modal) => {
+      modal.addEventListener("click", (e) => {
+        this.closeModal(modal);
+      });
+
+      modal.addEventListener("close", (e) => {
+        this.closeModal(modal);
+      });
+
+      const modalContent = modal.querySelector(this.modalContentSelector);
+
+      modalContent.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
     });
   }
-};
 
-const closeOpenModal = function () {
-  closeModal(document.querySelector("dialog[open]"));
-};
+  openModal(modal) {
+    if (modal instanceof Element) {
+      if (this.shouldLockBody) {
+        document.body.style.overflow = "hidden";
+      }
 
-const openModal = function (modal) {
-  if (modal instanceof Element) {
-    if (shouldLockBody) {
-      document.body.style.overflow = "hidden";
+      modal.showModal();
+    } else if (typeof modal === "string") {
+      if (this.shouldLockBody) {
+        document.body.style.overflow = "hidden";
+      }
+
+      document.querySelector(modal)?.showModal();
+    } else {
+      console.error(
+        "openModal: Property `modal` must be HTMLElement or string!",
+      );
     }
-
-    modal.showModal();
-  } else if (typeof modal === "string") {
-    if (shouldLockBody) {
-      document.body.style.overflow = "hidden";
-    }
-
-    document.querySelector(modal)?.showModal();
-  } else {
-    console.error("openModal: Property `modal` must be HTMLElement or string!");
   }
-};
 
-const openModalButtons = document.querySelectorAll("[data-modal]");
+  closeModal(modal) {
+    if (modal instanceof Element) {
+      modal?.close();
+    } else if (typeof modal === "string") {
+      document.querySelector(modal)?.close();
+    } else {
+      console.error(
+        "closeModal: Property `modal` must be HTMLElement or string!",
+      );
+    }
 
-[...openModalButtons].forEach((button) => {
-  button.addEventListener("click", (e) => {
-    e.preventDefault();
+    if (this.shouldLockBody) {
+      requestAnimationFrame(() => {
+        const stillOpen = document.querySelector("dialog[open]");
 
-    const modalSelector = button.getAttribute("data-modal");
-    openModal(modalSelector);
-  });
-});
+        if (!stillOpen) {
+          document.body.style.overflow = "";
+        }
+      });
+    }
+  }
 
-const modals = document.querySelectorAll(".modal");
+  closeActiveModal() {
+    this.closeModal(document.querySelector("dialog[open]"));
+  }
+}
 
-[...modals].forEach((modal) => {
-  modal.addEventListener("click", (e) => {
-    closeModal(modal);
-  });
+const modal = new Modal();
 
-  modal.addEventListener("close", (e) => {
-    closeModal(modal);
-  });
-
-  const modalContent = modal.querySelector(".modal__content");
-
-  modalContent.addEventListener("click", (e) => {
-    e.stopPropagation();
-  });
-});
+globalThis.modal = modal;
