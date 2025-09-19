@@ -12,3 +12,16 @@ $breakpoints: (
 $min-breakpoint: rem(320);
 $max-breakpoint: rem(1400);
 $max-viewport-width: rem(1400);
+
+:root {
+  // Fonts
+  --font-family-primary: "Inter", sans-serif;
+
+  // Transitions
+  --transition-base: 0.3s ease;
+  --transition-colors:
+    color var(--transition-base), background-color var(--transition-base),
+    border-color var(--transition-base);
+  --transition-opacity:
+    opacity var(--transition-base), visibility var(--transition-base);
+}
