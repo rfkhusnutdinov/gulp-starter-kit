@@ -8,85 +8,81 @@ class Modal {
       shouldLockBody: true,
     };
 
+    this.buttonSelector = ".js-modal-trigger";
+    this.buttonTargetAttribute = "data-target";
+    this.modalSelector = ".js-modal";
+    this.modalContentSelector = ".js-modal-content";
+
     this.settings = { ...defaults, ...options };
-    this.buttonSelector = "[data-modal-target]";
-    this.buttonTargetAttribute = "data-modal-target";
-    this.modalSelector = "[data-modal]";
-    this.modalContentSelector = "[data-modal-content]";
 
-    this.buttons = document.querySelectorAll(this.settings.buttonsSelector);
-    this.modals = document.querySelectorAll(this.settings.modalsSelector);
-
-    this.init();
+    this.#init();
   }
 
-  init() {
-    [...this.buttons].forEach((button) => {
-      button.addEventListener("click", (e) => {
+  #init() {
+    document.addEventListener("click", (e) => {
+      const button = e.target.closest(this.buttonSelector);
+
+      if (button) {
         e.preventDefault();
 
-        const modalSelector = button.getAttribute(this.buttonTargetAttribute);
-        this.openModal(modalSelector);
-      });
+        this.openModal(button.getAttribute(this.buttonTargetAttribute));
+        return;
+      }
+
+      const modal = e.target.closest(this.modalSelector);
+
+      if (modal) {
+        this.closeModal(modal);
+      }
     });
 
-    [...this.modals].forEach((modal) => {
-      modal.addEventListener("click", (e) => {
-        this.closeModal(modal);
-      });
+    document.querySelectorAll(this.modalSelector).forEach((modal) => {
+      modal.addEventListener("close", () => this.closeModal(modal));
 
-      modal.addEventListener("close", (e) => {
-        this.closeModal(modal);
-      });
-
-      const modalContent = modal.querySelector(this.modalContentSelector);
-
-      modalContent.addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
+      modal
+        .querySelector(this.modalContentSelector)
+        ?.addEventListener("click", (e) => {
+          e.stopPropagation();
+        });
     });
   }
 
-  openModal(modal) {
-    if (modal instanceof Element) {
-      if (this.shouldLockBody) {
-        document.body.style.overflow = "hidden";
-      }
+  #getModal(modal) {
+    if (modal instanceof Element) return modal;
+    if (typeof modal === "string") return document.querySelector(modal);
+    return null;
+  }
 
-      modal.showModal();
-    } else if (typeof modal === "string") {
-      if (this.shouldLockBody) {
-        document.body.style.overflow = "hidden";
-      }
-
-      document.querySelector(modal)?.showModal();
-    } else {
-      console.error(
-        "openModal: Property `modal` must be HTMLElement or string!",
-      );
+  #lockBody() {
+    if (this.settings.shouldLockBody) {
+      document.body.style.overflow = "hidden";
     }
   }
 
-  closeModal(modal) {
-    if (modal instanceof Element) {
-      modal?.close();
-    } else if (typeof modal === "string") {
-      document.querySelector(modal)?.close();
-    } else {
-      console.error(
-        "closeModal: Property `modal` must be HTMLElement or string!",
-      );
-    }
-
-    if (this.shouldLockBody) {
+  #unlockBody() {
+    if (this.settings.shouldLockBody) {
       requestAnimationFrame(() => {
-        const stillOpen = document.querySelector("dialog[open]");
-
-        if (!stillOpen) {
+        if (!document.querySelector("dialog[open]")) {
           document.body.style.overflow = "";
         }
       });
     }
+  }
+
+  openModal(modal) {
+    const el = this.#getModal(modal);
+    if (!el) return console.error("openModal: modal not found", modal);
+
+    this.#lockBody();
+    el.showModal();
+  }
+
+  closeModal(modal) {
+    const el = this.#getModal(modal);
+    if (!el) return console.error("closeModal: modal not found", modal);
+
+    this.#unlockBody();
+    el.close();
   }
 
   closeActiveModal() {
