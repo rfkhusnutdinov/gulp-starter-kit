@@ -2,7 +2,9 @@
  *  .button
  *  ========================================================================== */
 .button {
+  position: relative;
   display: inline-flex;
+  gap: rem(8);
   align-items: center;
   justify-content: center;
   max-width: 100%;
@@ -14,5 +16,21 @@
   }
 
   &:disabled {
+    cursor: not-allowed;
+  }
+
+  // Colors (primary, default, secondary, pink and etc...)
+  // .button--color-primary
+  &--color-primary {
+  }
+
+  // Variants (solid, outlined, dashed)
+  // .button--variant-solid
+  &--variant-solid {
+  }
+
+  // Sizes (small, large or xs, sm, lg, xl, etc...)
+  // .button--size-small
+  &--size-small {
   }
 }

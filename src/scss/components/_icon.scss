@@ -7,16 +7,22 @@
   align-items: center;
   justify-content: center;
   width: 1em;
-  height: auto;
+  height: 1em;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 
+  // .icon--height-auto
+  &--height-auto {
+    height: auto;
+  }
+
   svg,
   img {
     display: block;
-    width: 100%;
-    height: auto;
+    width: inherit;
+    height: inherit;
+    margin: 0;
     fill: currentcolor;
   }
 
