@@ -2,12 +2,12 @@ import GulpFormatHtml from "gulp-format-html";
 import gulpIf from "gulp-if";
 import typograf from "gulp-typograf";
 import replace from "gulp-replace";
-import { nunjucksCompile } from "gulp-nunjucks";
+import GulpPug from "gulp-pug";
 
 export const htmlTask = () => {
   return app.gulp
     .src(app.paths.html.src)
-    .pipe(nunjucksCompile())
+    .pipe(GulpPug())
     .pipe(
       typograf({
         locale: ["ru", "en-US"],

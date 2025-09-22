@@ -13,8 +13,8 @@ const paths = {
     watch: "dist",
   },
   html: {
-    src: "src/templates/*.{html,njk}",
-    watch: "src/templates/**/*.{html,njk}",
+    src: "src/templates/*.pug",
+    watch: "src/templates/**/*.pug",
     dist: "dist",
   },
   scss: {
