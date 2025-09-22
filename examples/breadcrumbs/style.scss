@@ -1,0 +1,24 @@
+/*! ==========================================================================
+ *  .breadcrumbs
+ *  ========================================================================== */
+.breadcrumbs {
+  // .breadcrumbs__list
+  &__list {
+  }
+
+  // .breadcrumbs__item
+  &__item {
+    display: inline;
+
+    &:not(:last-child) {
+      &::after {
+        vertical-align: middle;
+        content: "/";
+      }
+    }
+  }
+
+  // .breadcrumbs__link
+  &__link {
+  }
+}

@@ -1,0 +1,34 @@
+/*! ==========================================================================
+ *  Custom scrollbar - Only px for width and margins
+ *  ========================================================================== */
+:root {
+  --scrollbar-thumb-color: black;
+  --scrollbar-track-color: #ccc;
+  --scrollbar-width: 4px;
+  --scrollbar-border-radius: 4px;
+  --scrollbar-margin-y: 0;
+  --scrollbar-margin-x: 0;
+}
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: var(--scrollbar-border-radius);
+}
+
+::-webkit-scrollbar-track {
+  margin: var(--scrollbar-margin-y) var(--scrollbar-margin-x);
+  background: var(--scrollbar-track-color);
+  border-radius: var(--scrollbar-border-radius);
+}
+
+/* stylelint-disable-next-line at-rule-no-vendor-prefix */
+@-moz-document url-prefix() {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+  }
+}

@@ -1,7 +1,6 @@
 /**
  * Modals
  */
-
 class Modal {
   constructor(options = {}) {
     const defaults = {
@@ -12,6 +11,7 @@ class Modal {
     this.buttonTargetAttribute = "data-target";
     this.modalSelector = ".js-modal";
     this.modalContentSelector = ".js-modal-content";
+    this.modalCloseButtonSelector = ".js-modal-close-button";
 
     this.settings = { ...defaults, ...options };
 
@@ -31,19 +31,23 @@ class Modal {
 
       const modal = e.target.closest(this.modalSelector);
 
-      if (modal) {
+      if (modal && e.target === modal) {
         this.closeModal(modal);
+        return;
+      }
+
+      const modalCloseButton = e.target.closest(this.modalCloseButtonSelector);
+
+      if (modal && modalCloseButton) {
+        this.closeActiveModal(modal);
+        return;
       }
     });
 
-    document.querySelectorAll(this.modalSelector).forEach((modal) => {
-      modal.addEventListener("close", () => this.closeModal(modal));
-
-      modal
-        .querySelector(this.modalContentSelector)
-        ?.addEventListener("click", (e) => {
-          e.stopPropagation();
-        });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.closeActiveModal();
+      }
     });
   }
 
@@ -73,8 +77,38 @@ class Modal {
     const el = this.#getModal(modal);
     if (!el) return console.error("openModal: modal not found", modal);
 
+    el._triggerElement = document.activeElement;
     this.#lockBody();
-    el.showModal();
+    el.setAttribute("aria-hidden", "false");
+    el.querySelector(".modal__content").focus();
+
+    const focusableElements = el.querySelectorAll(
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    firstElement.focus();
+
+    el.addEventListener("keydown", trapFocus);
+
+    function trapFocus(e) {
+      if (e.key === "Tab") {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    }
+
+    el.trapFocusHandler = trapFocus;
   }
 
   closeModal(modal) {
@@ -82,11 +116,24 @@ class Modal {
     if (!el) return console.error("closeModal: modal not found", modal);
 
     this.#unlockBody();
-    el.close();
+    el.setAttribute("aria-hidden", "true");
+    el.removeEventListener("keydown", el.trapFocusHandler);
+
+    if (el._triggerElement) {
+      console.log(el._triggerElement);
+      el._triggerElement.focus();
+      delete el._triggerElement;
+    }
   }
 
   closeActiveModal() {
-    this.closeModal(document.querySelector("dialog[open]"));
+    const activeModal = document.querySelector(
+      `${this.modalSelector}[aria-hidden="false"]`,
+    );
+
+    if (activeModal) {
+      this.closeModal(activeModal);
+    }
   }
 }
 
