@@ -1,6 +1,6 @@
-/**
- * Modals
- */
+import dialogPolyfill from "dialog-polyfill";
+import "dialog-polyfill/dist/dialog-polyfill.css";
+
 class Modal {
   constructor(options = {}) {
     const defaults = {
@@ -80,6 +80,10 @@ class Modal {
       return;
     }
 
+    if (typeof el.showModal !== "function") {
+      dialogPolyfill.registerDialog(el);
+    }
+
     this.#lockBody();
     el.showModal();
 
@@ -107,7 +111,11 @@ class Modal {
     }
   }
 }
+globalThis.Modal = Modal;
 
+/**
+ * Modals
+ */
 const modal = new Modal({
   shouldLockBody: true,
   bodyLockClass: "is-lock",
@@ -117,5 +125,3 @@ const modal = new Modal({
   onOpen: (modalEl, triggerButton) => {},
   onClose: (modalEl) => {},
 });
-
-globalThis.modal = modal;

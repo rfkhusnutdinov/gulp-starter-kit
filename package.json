@@ -50,5 +50,8 @@
     "stylelint-config-rational-order": "0.1.2",
     "stylelint-config-standard-scss": "14.0.0",
     "yargs": "17.7.2"
+  },
+  "dependencies": {
+    "dialog-polyfill": "^0.5.6"
   }
 }
