@@ -5,13 +5,17 @@ class Modal {
   constructor(options = {}) {
     const defaults = {
       shouldLockBody: true,
+      bodyLockClass: "is-lock",
+      buttonSelector: ".js-modal-trigger",
+      modalSelector: ".js-modal",
+      modalCloseButtonSelector: ".js-modal-close-button",
+      onOpen: (modalEl, triggerButton) => {
+        console.log(modalEl, triggerButton);
+      },
+      onClose: (modalEl) => {
+        console.log(modalEl);
+      },
     };
-
-    this.buttonSelector = ".js-modal-trigger";
-    this.buttonTargetAttribute = "data-target";
-    this.modalSelector = ".js-modal";
-    this.modalContentSelector = ".js-modal-content";
-    this.modalCloseButtonSelector = ".js-modal-close-button";
 
     this.settings = { ...defaults, ...options };
 
@@ -20,33 +24,27 @@ class Modal {
 
   #init() {
     document.addEventListener("click", (e) => {
-      const button = e.target.closest(this.buttonSelector);
+      const target = e.target;
 
+      const button = target.closest(this.settings.buttonSelector);
       if (button) {
         e.preventDefault();
-
-        this.openModal(button.getAttribute(this.buttonTargetAttribute));
-        return;
+        return this.openModal(button.dataset.target, button);
       }
 
-      const modal = e.target.closest(this.modalSelector);
+      const modal = target.closest(this.settings.modalSelector);
+      if (!modal) return;
 
       if (modal && e.target === modal) {
         this.closeModal(modal);
         return;
       }
 
-      const modalCloseButton = e.target.closest(this.modalCloseButtonSelector);
-
-      if (modal && modalCloseButton) {
-        this.closeActiveModal(modal);
-        return;
-      }
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        this.closeActiveModal();
+      if (
+        target === modal ||
+        target.closest(this.settings.modalCloseButtonSelector)
+      ) {
+        return this.closeModal(modal);
       }
     });
   }
@@ -60,6 +58,7 @@ class Modal {
   #lockBody() {
     if (this.settings.shouldLockBody) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add(this.settings.bodyLockClass);
     }
   }
 
@@ -68,68 +67,40 @@ class Modal {
       requestAnimationFrame(() => {
         if (!document.querySelector("dialog[open]")) {
           document.body.style.overflow = "";
+          document.body.classList.remove(this.settings.bodyLockClass);
         }
       });
     }
   }
 
-  openModal(modal) {
+  openModal(modal, trigger = null) {
     const el = this.#getModal(modal);
-    if (!el) return console.error("openModal: modal not found", modal);
-
-    el._triggerElement = document.activeElement;
-    this.#lockBody();
-    el.setAttribute("aria-hidden", "false");
-    el.querySelector(".modal__content").focus();
-
-    const focusableElements = el.querySelectorAll(
-      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
-    );
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    firstElement.focus();
-
-    el.addEventListener("keydown", trapFocus);
-
-    function trapFocus(e) {
-      if (e.key === "Tab") {
-        if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
-            e.preventDefault();
-            lastElement.focus();
-          }
-        } else {
-          if (document.activeElement === lastElement) {
-            e.preventDefault();
-            firstElement.focus();
-          }
-        }
-      }
+    if (!el) {
+      console.warn(`Modal not found: ${modal}`);
+      return;
     }
 
-    el.trapFocusHandler = trapFocus;
+    this.#lockBody();
+    el.showModal();
+
+    this.settings.onOpen?.(el, trigger);
   }
 
   closeModal(modal) {
     const el = this.#getModal(modal);
-    if (!el) return console.error("closeModal: modal not found", modal);
+    if (!el) {
+      console.warn(`Modal not found: ${modal}`);
+      return;
+    }
 
     this.#unlockBody();
-    el.setAttribute("aria-hidden", "true");
-    el.removeEventListener("keydown", el.trapFocusHandler);
+    el.close();
 
-    if (el._triggerElement) {
-      console.log(el._triggerElement);
-      el._triggerElement.focus();
-      delete el._triggerElement;
-    }
+    this.settings.onClose?.(el);
   }
 
   closeActiveModal() {
-    const activeModal = document.querySelector(
-      `${this.modalSelector}[aria-hidden="false"]`,
-    );
+    const activeModal = document.querySelector("dialog[open]");
 
     if (activeModal) {
       this.closeModal(activeModal);
@@ -137,6 +108,14 @@ class Modal {
   }
 }
 
-const modal = new Modal();
+const modal = new Modal({
+  shouldLockBody: true,
+  bodyLockClass: "is-lock",
+  buttonSelector: ".js-modal-trigger",
+  modalSelector: ".js-modal",
+  modalCloseButtonSelector: ".js-modal-close-button",
+  onOpen: (modalEl, triggerButton) => {},
+  onClose: (modalEl) => {},
+});
 
 globalThis.modal = modal;
