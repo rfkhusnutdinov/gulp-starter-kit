@@ -1,31 +1,64 @@
+class ScrollbarWidth {
+  scrollbarWidth = null;
+  observer = null;
+  settings = {
+    variableName: "--scrollbar-width-base",
+    observeResize: true,
+  };
+
+  constructor(options = {}) {
+    this.settings = { ...this.settings, ...options };
+    this.#init();
+  }
+
+  #init() {
+    this.#setScrollbarWidthVar();
+
+    if (this.settings.observeResize && typeof ResizeObserver !== "undefined") {
+      this.observer = new ResizeObserver(() => this.#setScrollbarWidthVar());
+      this.observer.observe(document.documentElement);
+    }
+  }
+
+  #getScrollbarWidth() {
+    if (this.scrollbarWidth !== null) return this.scrollbarWidth;
+
+    const div = document.createElement("div");
+    div.style.cssText = `
+      width: 100px;
+      height: 100px;
+      overflow-y: scroll;
+      position: absolute;
+      visibility: hidden;
+      pointer-events: none;
+    `;
+    document.body.appendChild(div);
+
+    this.scrollbarWidth = div.offsetWidth - div.clientWidth;
+
+    div.remove();
+    return this.scrollbarWidth;
+  }
+
+  #setScrollbarWidthVar() {
+    const width = this.#getScrollbarWidth();
+    document.documentElement.style.setProperty(
+      this.settings.variableName,
+      `${width}px`,
+    );
+  }
+
+  destroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = null;
+    }
+  }
+}
+
+globalThis.ScrollbarWidth = ScrollbarWidth;
+
 /**
  * Scrollbar width
  */
-
-function getScrollbarWidth() {
-  const div = document.createElement("div");
-  div.style.width = "100px";
-  div.style.height = "100px";
-  div.style.overflowY = "scroll";
-  div.style.position = "absolute";
-  div.style.top = "-9999px";
-  document.body.appendChild(div);
-
-  const scrollbarWidth = div.offsetWidth - div.clientWidth;
-
-  document.body.removeChild(div);
-
-  return scrollbarWidth;
-}
-
-function setScrollbarWidthVar() {
-  const scrollbarWidth = getScrollbarWidth();
-
-  document.documentElement.style.setProperty(
-    "--scrollbar-width-base",
-    `${scrollbarWidth}px`,
-  );
-}
-
-setScrollbarWidthVar();
-window.addEventListener("resize", setScrollbarWidthVar);
+const scrollbarWidth = new ScrollbarWidth();
