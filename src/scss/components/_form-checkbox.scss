@@ -1,0 +1,47 @@
+/*! ==========================================================================
+ *  .form-checkbox
+ *  ========================================================================== */
+.form-checkbox {
+  // .form-checkbox__control
+  &__control {
+    display: inline-flex;
+    gap: rem(10);
+    align-items: center;
+
+    &:checked {
+      & + .form-checkbox__toggle {
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  // .form-checkbox__toggle
+  &__toggle {
+    position: relative;
+    display: block;
+    width: rem(20);
+    height: rem(20);
+    border: 1px solid #ccc;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: 0;
+      transition: var(--transition-opacity);
+      content: "";
+    }
+  }
+
+  // .form-checkbox__label
+  &__label {
+  }
+}

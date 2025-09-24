@@ -8,6 +8,11 @@
     flex-direction: column;
     min-height: 100dvh;
     font-family: var(--font-family-primary);
+
+    &--lock {
+      padding-right: var(--scrollbar-width-base);
+      overflow: hidden;
+    }
   }
 
   // .page__header

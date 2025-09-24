@@ -90,11 +90,15 @@
       #{$slope-to-unit}vw + #{$intercept-rem},
       #{$start-size-rem}
     );
-  } @else {
+  } @else if $start-size < $end-size {
     $size-delta: $end-size - $start-size;
     $fluid-value: fluid-rem($size-delta, 0);
     $end-size-rem: round(rem($end-size), 2);
 
     @return calc(#{$end-size-rem} - #{$fluid-value});
+  } @else {
+    $size-rem: round(rem($end-size), 2);
+
+    @return $size-rem;
   }
 }
