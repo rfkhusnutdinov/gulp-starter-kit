@@ -9,5 +9,6 @@
     var(--container-width),
     calc(100% - 2 * var(--container-padding-x))
   );
-  margin-inline: auto;
+  margin-right: auto;
+  margin-left: auto;
 }
