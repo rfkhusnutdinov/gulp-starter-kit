@@ -18,7 +18,7 @@
   $index: index($keys, $breakpoint);
 
   @if $direction == up {
-    @media (width >= $min) {
+    @media (min-width: $min) {
       @content;
     }
   } @else if $direction == down {
@@ -27,21 +27,21 @@
       @content;
     } @else {
       $next-key: nth($keys, $next-index);
-      $max: map-get($breakpoints, $next-key);
-      @media (width < $max) {
+      $max: map-get($breakpoints, $next-key) - 0.02rem;
+      @media (max-width: $max) {
         @content;
       }
     }
   } @else if $direction == only {
     $next-index: $index + 1;
     @if $next-index > length($keys) {
-      @media (width >= $min) {
+      @media (min-width: $min) {
         @content;
       }
     } @else {
       $next-key: nth($keys, $next-index);
-      $max: map-get($breakpoints, $next-key);
-      @media (width >= $min) and (width < $max) {
+      $max: map-get($breakpoints, $next-key) - 0.02rem;
+      @media (min-width: $min) and (max-width: $max) {
         @content;
       }
     }
