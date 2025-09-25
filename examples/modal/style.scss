@@ -2,9 +2,13 @@
  *  .modal
  *  ========================================================================== */
 .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
   box-sizing: border-box;
   width: 100%;
   max-width: unset;
+  height: 100vh;
   height: 100dvh;
   max-height: unset;
   margin: 0;
@@ -12,9 +16,14 @@
   background-color: rgba(0, 0, 0, 80%);
   border: none;
 
+  &:not([open]) {
+    display: none;
+  }
+
   &::backdrop,
   & + .backdrop {
     background: none;
+    pointer-events: none;
   }
 
   // .modal__wrapper

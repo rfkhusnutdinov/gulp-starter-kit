@@ -9,6 +9,7 @@ class Modal {
       buttonSelector: ".js-modal-trigger",
       modalSelector: ".js-modal",
       modalCloseButtonSelector: ".js-modal-close-button",
+      closePreviousOnOpen: true,
       onOpen: (modalEl, triggerButton) => {
         console.log(modalEl, triggerButton);
       },
@@ -47,6 +48,12 @@ class Modal {
         return this.closeModal(modal);
       }
     });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key == "Escape") {
+        this.#unlockBody();
+      }
+    });
   }
 
   #getModal(modal) {
@@ -82,6 +89,10 @@ class Modal {
 
     if (typeof el.showModal !== "function") {
       dialogPolyfill.registerDialog(el);
+    }
+
+    if (this.settings.closePreviousOnOpen) {
+      this.closeActiveModal();
     }
 
     this.#lockBody();
@@ -125,3 +136,5 @@ const modal = new Modal({
   onOpen: (modalEl, triggerButton) => {},
   onClose: (modalEl) => {},
 });
+
+globalThis.modal = modal;
