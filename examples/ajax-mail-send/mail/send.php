@@ -1,5 +1,11 @@
 <?php
-define("MAIL_FROM_EMAIL", "noreply@site.ru");
+$domain = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? 'site.com';
+$domain = preg_replace(['/^www\./', '/:\d+$/'], '', $domain);
+if (preg_match('/([a-z0-9-]+\.[a-z]{2,}(?:\.[a-z]{2})?)$/i', $domain, $m)) {
+    $domain = $m[1];
+}
+
+define('MAIL_FROM_EMAIL', "noreply@$domain");
 define("MAIL_FROM_NAME", "Мой сайт");
 define("MAIL_ADDRESSES", [""]);
 define("MAIL_SUBJECT", "Заявка с сайта site.ru");
