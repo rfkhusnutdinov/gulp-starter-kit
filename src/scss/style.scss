@@ -4,20 +4,19 @@
 @import "./global/functions";
 @import "./global/media-query";
 @import "./global/mixins";
-@import "./global/variables";
 @import "./global/normalize";
-@import "./global/fonts";
 @import "./global/global";
+@import "./global/fonts";
+@import "./global/variables";
+@import "./global/typography";
 @import "./global/utils";
 
 // ==========================================
 // Components
 // ==========================================
-// Не использованы
-// @import "./components/aspect-ratio";
-
-// Использованы
 @import "./components/page";
-@import "./components/icon";
+@import "./components/aspect-ratio";
 @import "./components/button";
+@import "./components/icon";
 @import "./components/container";
+@import "./components/content";

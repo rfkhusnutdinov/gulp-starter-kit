@@ -61,4 +61,7 @@ globalThis.ScrollbarWidth = ScrollbarWidth;
 /**
  * Scrollbar width
  */
-const scrollbarWidth = new ScrollbarWidth();
+const scrollbarWidth = new ScrollbarWidth({
+  variableName: "--scrollbar-width-base",
+  observeResize: true,
+});
