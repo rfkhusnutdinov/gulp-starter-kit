@@ -1,0 +1,55 @@
+/*! ==========================================================================
+ *  .splide
+ *  ========================================================================== */
+.splide {
+  --splide-per-page: 1;
+  --splide-gap: #{rem(20)};
+
+  &.is-initialized.is-active {
+    .splide__slide {
+      width: calc(
+        (100% - var(--splide-gap) * (var(--splide-per-page) - 1)) /
+          var(--splide-per-page)
+      );
+
+      &:not(:last-child) {
+        margin-right: var(--splide-gap);
+      }
+    }
+  }
+
+  // .splide__track
+  &__track {
+    &--visible {
+      overflow: visible;
+    }
+  }
+
+  // .splide__list
+  &__list {
+  }
+
+  // .splide__slide
+  &__slide {
+    display: flex;
+  }
+
+  // .splide__pagination
+  &__pagination {
+  }
+
+  // .splide__arrows
+  &__arrows {
+  }
+
+  // .splide__arrow
+  &__arrow {
+    // .splide__arrow--prev
+    &--prev {
+    }
+
+    // .splide__arrow--next
+    &--next {
+    }
+  }
+}

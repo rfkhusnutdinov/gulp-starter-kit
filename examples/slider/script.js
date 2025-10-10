@@ -1,5 +1,5 @@
-import "@splidejs/splide/css/core";
-import Splide from "@splidejs/splide";
+import "./splide/splide.min.css";
+import Splide from "./splide/splide";
 globalThis.Splide = Splide;
 
 /**
@@ -8,5 +8,10 @@ globalThis.Splide = Splide;
  * Documentation: https://splidejs.com/
  */
 [...document.querySelectorAll(".splide")].forEach((slider) => {
-  new Splide(slider).mount();
+  new Splide(slider, {
+    type: "loop",
+    autoWidth: true,
+    perMove: 1,
+    omitEnd: true,
+  }).mount();
 });
