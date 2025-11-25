@@ -1,0 +1,46 @@
+RewriteEngine On
+
+AddDefaultCharset utf-8
+
+# Главная страница по умолчанию
+#DirectoryIndex new_index.html
+
+# Страницы ошибок
+#ErrorDocument 404 /
+
+# Удаление лишних слешей в URL
+RewriteCond %{THE_REQUEST} //
+RewriteRule .* %{REQUEST_URI} [R=301,L,NE]
+
+RewriteCond %{REQUEST_URI} ^(.+)//+(.+)$
+RewriteRule ^ %1/%2 [R=301,L]
+
+# Редирект HTTP → HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# Редирект на без WWW
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+# Убирает index.php и index.html
+RewriteRule ^index\.html$ / [R=301,L]
+RewriteRule ^index\.php$ / [R=301,L]
+
+# Запрет просмотра списка директорий
+Options -Indexes
+
+# Защита файла .htaccess
+<Files ".htaccess">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# GZIP-сжатие
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript
+</IfModule>
+
+# Редирект страниц
+#Redirect 301 /old-page /new-page
