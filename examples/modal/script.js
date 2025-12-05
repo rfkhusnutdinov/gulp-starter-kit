@@ -36,11 +36,6 @@ class Modal {
       const modal = target.closest(this.settings.modalSelector);
       if (!modal) return;
 
-      if (modal && e.target === modal) {
-        this.closeModal(modal);
-        return;
-      }
-
       if (
         target === modal ||
         target.closest(this.settings.modalCloseButtonSelector)
