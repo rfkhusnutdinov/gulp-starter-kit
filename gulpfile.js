@@ -33,10 +33,20 @@ const paths = {
     watch: "src/js/**/*.js",
   },
   images: {
-    src: "src/images/**/*.{png,jpg,jpeg,gif,svg,webp,ico,xml,webmanifest,mp4}",
-    dist: "dist/images",
-    watch:
+    src: [
       "src/images/**/*.{png,jpg,jpeg,gif,svg,webp,ico,xml,webmanifest,mp4}",
+      "!src/images/svg-sprite/*.svg",
+    ],
+    dist: "dist/images",
+    watch: [
+      "src/images/**/*.{png,jpg,jpeg,gif,svg,webp,ico,xml,webmanifest,mp4}",
+      "!src/images/svg-sprite/*.svg",
+    ],
+  },
+  sprite: {
+    src: "src/images/svg-sprite/*.svg",
+    dist: "dist/images",
+    watch: "src/images/svg-sprite/*.svg",
   },
   fonts: {
     src: "src/fonts/*.{woff,woff2}",
@@ -64,6 +74,7 @@ import { htmlTask } from "./gulp/html.js";
 import { stylesTask } from "./gulp/styles.js";
 import { scriptsTask } from "./gulp/scripts.js";
 import { imagesTask } from "./gulp/images.js";
+import { svgSpriteTask } from "./gulp/svg-sprite.js";
 import { miscTask } from "./gulp/misc.js";
 import { serverTask } from "./gulp/server.js";
 
@@ -72,6 +83,7 @@ const watcher = async () => {
   gulp.watch(paths.scss.watch, stylesTask);
   gulp.watch(paths.fonts.watch, fontsTask);
   gulp.watch(paths.images.watch, imagesTask);
+  gulp.watch(paths.sprite.watch, svgSpriteTask);
   gulp.watch(paths.mainJs.watch, scriptsTask);
   gulp.watch(paths.misc.watch, miscTask);
 };
@@ -83,6 +95,7 @@ const tasks = gulp.series(
     stylesTask,
     scriptsTask,
     imagesTask,
+    svgSpriteTask,
     fontsTask,
     miscTask,
   ),
@@ -95,6 +108,7 @@ export { htmlTask };
 export { stylesTask };
 export { fontsTask };
 export { imagesTask };
+export { svgSpriteTask };
 export { scriptsTask };
 export { miscTask };
 
