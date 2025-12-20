@@ -13,8 +13,8 @@ const paths = {
     watch: "dist",
   },
   html: {
-    src: "src/templates/*.pug",
-    watch: "src/templates/**/*.pug",
+    src: "src/templates/*.html",
+    watch: "src/templates/**/*.html",
     dist: "dist",
   },
   scss: {
@@ -22,8 +22,8 @@ const paths = {
     watch: "src/scss/**/*.scss",
     dist: "dist/css",
   },
-  appJs: {
-    src: "src/js/app.js",
+  mainJs: {
+    src: "src/js/main.js",
     dist: "dist/js",
     watch: "src/js/**/*.js",
   },
@@ -72,7 +72,7 @@ const watcher = async () => {
   gulp.watch(paths.scss.watch, stylesTask);
   gulp.watch(paths.fonts.watch, fontsTask);
   gulp.watch(paths.images.watch, imagesTask);
-  gulp.watch(paths.appJs.watch, scriptsTask);
+  gulp.watch(paths.mainJs.watch, scriptsTask);
   gulp.watch(paths.misc.watch, miscTask);
 };
 

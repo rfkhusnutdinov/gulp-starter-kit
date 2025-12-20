@@ -2,12 +2,17 @@ import GulpFormatHtml from "gulp-format-html";
 import gulpIf from "gulp-if";
 import typograf from "gulp-typograf";
 import replace from "gulp-replace";
-import GulpPug from "gulp-pug";
+import fileinclude from "gulp-file-include";
 
 export const htmlTask = () => {
   return app.gulp
     .src(app.paths.html.src)
-    .pipe(GulpPug())
+    .pipe(
+      fileinclude({
+        prefix: "@@",
+        basepath: "@file",
+      }),
+    )
     .pipe(
       typograf({
         locale: ["ru", "en-US"],

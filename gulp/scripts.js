@@ -9,8 +9,8 @@ import autoprefixer from "autoprefixer";
 import combineMediaQuery from "postcss-combine-media-query";
 
 export const scriptsTask = async () => {
-  const appBundle = await rollup({
-    input: app.paths.appJs.src,
+  const mainBundle = await rollup({
+    input: app.paths.mainJs.src,
     plugins: [
       commonjs(),
       nodeResolve(),
@@ -23,11 +23,11 @@ export const scriptsTask = async () => {
     ],
   });
 
-  await appBundle.write({
+  await mainBundle.write({
     sourcemap: app.mode === "development" ? true : false,
     format: "iife",
-    dir: app.paths.appJs.dist,
-    entryFileNames: "app.js",
+    dir: app.paths.mainJs.dist,
+    entryFileNames: "main.js",
   });
 
   const libsBundle = await rollup({
