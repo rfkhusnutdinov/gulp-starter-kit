@@ -49,9 +49,9 @@ const paths = {
     watch: "src/images/svg-sprite/*.svg",
   },
   fonts: {
-    src: "src/fonts/*.{woff,woff2}",
+    src: "src/fonts/*.{ttf,woff2}",
     dist: "dist/fonts",
-    watch: "src/fonts/*.{woff,woff2}",
+    watch: "src/fonts/*.{ttf,woff2}",
   },
   misc: {
     src: "src/misc/**/*.*",

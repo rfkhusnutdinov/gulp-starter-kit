@@ -41,6 +41,7 @@
     "gulp-sass": "6.0.0",
     "gulp-svg-sprite": "^2.0.3",
     "gulp-svgmin": "^4.1.0",
+    "gulp-ttf2woff2": "^5.0.0",
     "gulp-typograf": "4.1.0",
     "gulp-webp": "5.0.0",
     "postcss-combine-media-query": "1.0.1",
