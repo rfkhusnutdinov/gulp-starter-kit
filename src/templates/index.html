@@ -2,11 +2,13 @@
 <html lang="ru">
   @@include("./components/head.html", { "title": "Главная страница" })
   <body>
-    @@include("./components/header.html")
+    <div class="page-wrapper">
+      @@include("./components/header.html")
 
-    <main></main>
+      <main></main>
 
-    @@include("./components/footer.html")
+      @@include("./components/footer.html")
+    </div>
 
     <!-- Скрипты -->
     @@include("./components/scripts.html", { "prependScripts": "",
