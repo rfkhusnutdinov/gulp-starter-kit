@@ -23,6 +23,10 @@
 
   &:disabled {
     cursor: not-allowed;
+
+    --button-background-color: rgba(239, 239, 239, 30%) !important;
+    --button-color: rgba(16, 16, 16, 30%) !important;
+    --button-border-color: rgba(118, 118, 118, 30%) !important;
   }
 
   // Colors (primary, default, secondary, pink and etc...)
