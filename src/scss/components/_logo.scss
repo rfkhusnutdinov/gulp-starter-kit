@@ -1,0 +1,17 @@
+/*! ==========================================================================
+ *  .logo
+ *  ========================================================================== */
+.logo {
+  display: block;
+  width: max-content;
+  margin: 0;
+  text-decoration: none;
+
+  img,
+  svg {
+    display: block;
+    width: max(100%, rem(160));
+    height: auto;
+    margin: 0;
+  }
+}
