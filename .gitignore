@@ -1,13 +1,4 @@
-# VScode настройки
-/.vscode
+.vscode
 *.code-workspace
-
-# Папка с собранным проектом
-/dist/*
-!dist/.gitkeep
-
-# Пакеты npm
-/node_modules
-
-# Зависимости проекта
-package-lock.json
+dist
+node_modules

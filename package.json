@@ -26,6 +26,8 @@
     "browser-sync": "3.0.3",
     "cssnano": "7.0.6",
     "del": "8.0.0",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
     "gulp": "5.0.0",
     "gulp-autoprefixer": "9.0.0",
     "gulp-cheerio": "^1.0.0",

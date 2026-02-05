@@ -1,9 +1,4 @@
-# Папка с собранным проектом
-dist/
-
-# Пакеты npm
-node_modules/
-
-# Папка с проектом
+dist
+node_modules
 src/*
 !src/scss
